@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://rifu0v6agti6"]
+
+[ext_resource type="PackedScene" uid="uid://cjlsecs2lweed" path="res://assets/meshes/sign.glb" id="1_ic2dt"]
+[ext_resource type="FontFile" uid="uid://bsovmoy5rfq18" path="res://assets/fonts/DUNGRG__.TTF" id="2_a4vwg"]
+
+[node name="Sign" type="Node3D"]
+
+[node name="mesh" parent="." instance=ExtResource("1_ic2dt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Sign" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.026089, -0.0520542)
+double_sided = false
+alpha_cut = 1
+modulate = Color(0.384314, 0.27451, 0.14902, 1)
+text = "Solitude
+"
+font = ExtResource("2_a4vwg")
+font_size = 96
+outline_size = 8

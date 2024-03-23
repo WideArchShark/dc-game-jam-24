@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bes0mmxhqulx2"]
+
+[ext_resource type="Script" path="res://archive/grid_player.gd" id="1_rv24b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_klktu"]
+radius = 0.25
+height = 0.5
+
+[node name="grid_player" type="CharacterBody3D"]
+script = ExtResource("1_rv24b")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 60.0
+far = 1000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_klktu")

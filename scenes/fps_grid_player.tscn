@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://dey85gerlvvcm"]
+
+[ext_resource type="Script" path="res://scripts/fps_grid_player.gd" id="1_2h70d"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_s3bwt"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_kip1e"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_vk7y3"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_kqf16"]
+[ext_resource type="Theme" uid="uid://dkcksygppi5th" path="res://default.theme" id="6_220s4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hp6lu"]
+height = 1.0
+
+[node name="FPSGridPlayer" type="CharacterBody3D"]
+script = ExtResource("1_2h70d")
+rotation_speed = 4.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_hp6lu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 60.0
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_s3bwt")
+
+[node name="PlayerStates" type="Node" parent="StateChart"]
+script = ExtResource("3_kip1e")
+initial_state = NodePath("Actioning")
+
+[node name="Waiting" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="ToMoving" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Moving")
+event = &"to_moving"
+
+[node name="ToRotating" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Rotating")
+event = &"to_rotating"
+
+[node name="ToInteracting" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Interacting")
+event = &"to_interacting"
+
+[node name="Moving" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="ToWaiting" type="Node" parent="StateChart/PlayerStates/Moving"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Waiting")
+event = &"to_waiting"
+delay_seconds = 0.15
+
+[node name="ToActioning" type="Node" parent="StateChart/PlayerStates/Moving"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Actioning")
+event = &"to_actioning"
+
+[node name="Rotating" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="ToWaiting" type="Node" parent="StateChart/PlayerStates/Rotating"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Waiting")
+event = &"to_waiting"
+delay_seconds = 0.1
+
+[node name="Interacting" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="ToWaiting" type="Node" parent="StateChart/PlayerStates/Interacting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Waiting")
+event = &"to_waiting"
+
+[node name="Actioning" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="ToWaiting" type="Node" parent="StateChart/PlayerStates/Actioning"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Waiting")
+event = &"to_waiting"
+
+[node name="InfoLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 156.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_220s4")
+theme_override_font_sizes/font_size = 72
+text = "Press <Space> to Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="state_entered" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_entered"]
+[connection signal="state_exited" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/PlayerStates/Moving" to="." method="_on_moving_state_entered"]
+[connection signal="state_processing" from="StateChart/PlayerStates/Moving" to="." method="_on_moving_state_processing"]
+[connection signal="state_entered" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_entered"]
+[connection signal="state_processing" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_processing"]
+[connection signal="state_entered" from="StateChart/PlayerStates/Interacting" to="." method="_on_interacting_state_entered"]
+[connection signal="state_entered" from="StateChart/PlayerStates/Actioning" to="." method="_on_actioning_state_entered"]

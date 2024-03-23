@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmqntjkgn7r8t"]
+
+[ext_resource type="Theme" uid="uid://dkcksygppi5th" path="res://default.theme" id="1_sb5e4"]
+[ext_resource type="Texture2D" uid="uid://c21y3bh7qbrp2" path="res://assets/images/dialogue_back.png" id="1_ymb1p"]
+[ext_resource type="Texture2D" uid="uid://b4esw14k4u3oo" path="res://icon.svg" id="2_fkbjb"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/example_balloon/dailogue_box.gd" id="2_nwi1s"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_kiwvn"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="5_x1qmt"]
+
+[node name="DialogueBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sb5e4")
+script = ExtResource("2_nwi1s")
+
+[node name="Balloon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -278.846
+offset_right = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_ymb1p")
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 86.0
+offset_top = 66.0
+offset_right = -66.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="Balloon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_fkbjb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+text = "Kenny"
+scroll_active = false
+
+[node name="DialogueLabel" type="RichTextLabel" parent="Balloon/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+bbcode_enabled = true
+text = "Here's some text bla bla bla"
+scroll_active = false
+script = ExtResource("5_x1qmt")
+skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
+
+[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+alignment = 1
+script = ExtResource("3_kiwvn")
+
+[node name="Button" type="Button" parent="Balloon/HBoxContainer/ResponsesMenu"]
+layout_mode = 2
+text = "Response!"
+
+[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="response_selected" from="Balloon/HBoxContainer/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
