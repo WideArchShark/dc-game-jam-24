@@ -1,9 +1,20 @@
 ~ start
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Start again => start
-- End the conversation => END
-Nathan: For more information see the online documentation. This line is going to go over by quite some way.
+Mage: Well, hello there young knight!
+Erm... Hi?
+Mage: That's what I like. Confused and curious.
+Who says I'm confused?
+Mage: Well, you look confused... Are you then?
+- Not at all.
+	Mage: Well, sorry about that. Must be your natural look.
+	Mage: So, do you want to know what's going on?
+	- Yeah, why not => tutorial
+	- No thanks. I know what I'm doing.
+		Mage: Okey dokey then. Enjoy!
+		=> END
+- Actually, yeah. No clue.
+	Mage: In which case, let me explain how this all works.
+	=> tutorial
+
+~ tutorial
+Mage: It all goes something like this...
 => END

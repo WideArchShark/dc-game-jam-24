@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Dungeon Crawler Test 02"
-run/main_scene="res://examples/demo_dungeon_01.tscn"
+config/name="Dungeon Crawler Jam 2024"
+run/main_scene="res://scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -79,7 +79,7 @@ interact={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue_resources/mage.dialogue", "res://dialogue_resources/tutorial.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue_resources/mage.dialogue", "res://dialogue_resources/tutorial.dialogue", "res://dialogue_resources/dungeon_maze.dialogue", "res://dialogue_resources/skeleton.dialogue")
 
 [layer_names]
 
@@ -88,6 +88,6 @@ locale/translations_pot_files=PackedStringArray("res://dialogue_resources/mage.d
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
 anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1

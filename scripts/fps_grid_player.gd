@@ -26,8 +26,10 @@ signal player_moved(new_pos:Vector3)
 
 func _ready():
 	space_state = get_world_3d().direct_space_state
-	await get_tree().create_timer(2).timeout
-	DialogueManager.show_dialogue_balloon(TUTORIAL)
+	#await get_tree().create_timer(2).timeout
+	#DialogueManager.show_dialogue_balloon(TUTORIAL)
+	var tween = get_tree().create_tween()
+	tween.tween_property($Fader, "modulate", Color(0,0,0,0), 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func _on_waiting_state_entered():
 	#current_rot = rotation_degrees.y

@@ -1,0 +1,28 @@
+~ first_meeting
+Skeleton: Aha, just the sucker... I mean, brave young knight I've been looking for.
+Hmmm...
+Skeleton: What's up? Don't trust the undead? 
+Skeleton: Honestly, kids these days.
+Skeleton: Fact of the matter is I am eternally damned.
+Skeleton: I am told there is a way to free my soul, but it requires solving an infinite dungeon.
+What? Infinitely large?!
+Skeleton: No, I don't think so. Just infinitely different each time you try it.
+Skeleton: You could get lucky and find the secret straight away.
+Skeleton: Or you could spend forever in a confused state, wondering the halls.
+Not sure I'm up for this to be honest.
+Skeleton: Don't worry, that's all hyperbole. It's not that hard. 
+Skeleton: Just trying to... You know... Set the mood.
+If you say so!
+So what do I have to do?
+Skeleton: I can transport you there. I think the secret scroll lies in a chest somewhere.
+Can't you go and find it?
+Skeleton: I can't. Whenever I try, the chest stays shut.
+Skeleton: If you can find the chest, I think you will be able to open it.
+Skeleton: If you find it, I'll teleport you back and give you a clue to help you on your quest.
+=> enter_maze_decision
+
+~ enter_maze_decision
+Skeleton: So. Want to try the maze?
+- Not yet, maybe in a bit => END
+- OK, let's do this!
+=> END

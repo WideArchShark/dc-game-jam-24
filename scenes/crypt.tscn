@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfj7q25fag4l6"]
+
+[ext_resource type="PackedScene" uid="uid://bd4wuuc1d6kqk" path="res://assets/meshes/crypt.glb" id="1_h8brh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u6hus"]
+size = Vector3(6, 6, 8)
+
+[node name="Crypt" type="StaticBody3D"]
+
+[node name="crypt2" parent="." instance=ExtResource("1_h8brh")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_u6hus")

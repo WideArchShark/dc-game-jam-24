@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://jg4enue2yu58"]
+
+[ext_resource type="PackedScene" uid="uid://cmpajvilvdwh2" path="res://assets/meshes/floor_dirt_small_D.gltf.glb" id="1_1pbfo"]
+
+[node name="DirtTile02" type="Node3D"]
+
+[node name="floor_dirt_small_D_gltf" parent="." instance=ExtResource("1_1pbfo")]

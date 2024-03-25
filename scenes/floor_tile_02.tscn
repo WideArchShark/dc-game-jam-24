@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv52eseusc5yt"]
+
+[ext_resource type="PackedScene" uid="uid://da8sch3o10dsc" path="res://assets/meshes/floor_wood_small_dark.gltf.glb" id="1_r7v3d"]
+
+[node name="FloorTile02" type="Node3D"]
+
+[node name="floor_wood_small_dark_gltf" parent="." instance=ExtResource("1_r7v3d")]

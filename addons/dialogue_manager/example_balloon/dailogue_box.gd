@@ -6,11 +6,13 @@ const NEXT_ACTION = &"ui_accept"
 ## The action to use to skip typing the dialogue
 const SKIP_ACTION = &"ui_cancel"
 
-
 @onready var balloon: Control = %Balloon
+@onready var character_image = %CharacterImage
 @onready var character_label: RichTextLabel = %CharacterLabel
 @onready var dialogue_label: DialogueLabel = %DialogueLabel
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
+
+@export var character_images_folder:String = "res://assets/characters/"
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -42,8 +44,13 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
-		character_label.visible = not dialogue_line.character.is_empty()
-		character_label.text = tr(dialogue_line.character, "dialogue")
+		if !dialogue_line.character.is_empty():
+			character_label.visible = true
+			character_label.text = tr(dialogue_line.character, "dialogue")
+			_update_character_texture(dialogue_line.character)
+		else:
+			_update_character_texture("knight")
+			character_label.visible = false
 
 		dialogue_label.hide()
 		dialogue_label.dialogue_line = dialogue_line
@@ -85,7 +92,18 @@ func _ready() -> void:
 	balloon.hide()
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 
+func _update_character_texture(name:String):
+	var image_filename = "%s%s.png" % [ character_images_folder, name.to_lower()]
 
+	if FileAccess.file_exists(image_filename):
+		var img = Image.load_from_file(image_filename)
+		character_image.texture = ImageTexture.create_from_image(img)
+	else:
+		var img = Image.load_from_file("res://icon.svg")
+		character_image.texture = ImageTexture.create_from_image(img)
+
+	
+	
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()

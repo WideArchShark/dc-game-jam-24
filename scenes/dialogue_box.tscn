@@ -46,7 +46,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="TextureRect" type="TextureRect" parent="Balloon/HBoxContainer"]
+[node name="CharacterImage" type="TextureRect" parent="Balloon/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_fkbjb")
@@ -74,7 +75,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 bbcode_enabled = true
-text = "Here's some text bla bla bla"
+text = "Here's some text bla bla bla that goes over a couple of lines. It's too close together tbh. Let's see what I can do."
 scroll_active = false
 script = ExtResource("5_x1qmt")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")

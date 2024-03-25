@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6rjdn4hiy43q"]
+
+[ext_resource type="PackedScene" uid="uid://wv24eg56hk4c" path="res://assets/meshes/floor_dirt_small_weeds.gltf.glb" id="1_jp8yy"]
+
+[node name="DirtTile01" type="Node3D"]
+
+[node name="floor_dirt_small_weeds_gltf" parent="." instance=ExtResource("1_jp8yy")]
