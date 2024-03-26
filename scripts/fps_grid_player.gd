@@ -106,10 +106,10 @@ func _on_moving_state_entered():
 	walk_sound.play()
 
 func _on_moving_state_processing(delta):
-	global_position = lerp(current_pos, target_pos, lerp_progress)
-	lerp_progress += delta * movement_speed
-	
-	if lerp_progress >= 1:
+	if lerp_progress < 1:
+		global_position = current_pos.lerp(target_pos, lerp_progress)
+		lerp_progress += delta * movement_speed
+	else:
 		global_position = Vector3(round(target_pos.x), global_position.y, round(target_pos.z))
 		player_moved.emit(global_position)
 		
@@ -123,10 +123,11 @@ func _on_rotating_state_entered():
 
 func _on_rotating_state_processing(delta):
 	#rotation.y = lerp_angle(deg_to_rad(current_rot), deg_to_rad(target_rot), lerp_progress)
-	rotation.y = lerp_angle(current_rot, target_rot, lerp_progress)
-	lerp_progress += delta * rotation_speed
 	
-	if lerp_progress >= 1:
+	if lerp_progress <= 1:
+		rotation.y = lerp_angle(current_rot, target_rot, lerp_progress)
+		lerp_progress += delta * rotation_speed
+	else:
 		#rotation_degrees.y = round(target_rot)
 		rotation.y = target_rot
 		state_chart.send_event("to_waiting")
@@ -146,3 +147,7 @@ func _on_actioning_state_entered():
 		await action.action_finished
 	state_chart.send_event("to_waiting")
 
+func _on_player_moved(new_pos):
+		GameManager.moves_remaining -= 1
+		$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
+		

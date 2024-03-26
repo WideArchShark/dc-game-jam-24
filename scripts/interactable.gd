@@ -3,6 +3,7 @@ extends StaticBody3D
 enum InteractionType { EMIT_SIGNAL, DIALOGUE }
 
 @export var is_interactable:bool = true
+@export var is_character_interaction:bool = false
 @export var interaction_type:InteractionType
 @export var dialogue_resource:Resource
 @export var dialogue_title:String 
@@ -12,11 +13,15 @@ signal interact_finished()
 
 func interact():
 	if interaction_type == InteractionType.DIALOGUE:
-		print(dialogue_resource)
-		print(dialogue_title)
+		if is_character_interaction:
+			GameManager.fps_camera.get_node("AnimationPlayer").play("look_down")
+			
 		DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_title)
 		await DialogueManager.dialogue_ended
 		interact_finished.emit()
+		
+		if is_character_interaction:
+			GameManager.fps_camera.get_node("AnimationPlayer").play_backwards("look_down")
 	elif interaction_type == InteractionType.EMIT_SIGNAL:
 		on_interact.emit()
 

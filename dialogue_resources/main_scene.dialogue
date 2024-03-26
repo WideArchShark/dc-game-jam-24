@@ -1,9 +1,94 @@
 ~ dungeon_maze_door
 if GameManager.dungeon_maze_completed == true
 	You're all done with this door. Nice work!
+	=> END
 elif GameManager.dungeon_maze_door_unlocked == true
 	do GameManager.main_scene.get_node("Walls/MazeDoor").open_door()
 	do GameManager.load_dungeon_maze()
 else:
 	Seems to be locked. Maybe that skeleton knows something?
+	=> END
+
+~ barry
+if GameManager.spoke_to_barry == false
+	set GameManager.spoke_to_barry = true
+	Barry: Hey there knight. 
+	Barry: The name's Barry. Barry the ex Barbarian.
+	Ex barbarian lol. Changed your ways?
+	Barry: Hey, that's mean. But also true!
+	Barry: I used to rip anything and everything to shreds.
+	Barry: But now, I'm for the quiet life. I seek peace in my soul.
+	You what?
+	Barry: Of course, I wouldn't expect a knight to understand this.
+	Meh, whatevever floats your boat.
+	Barry: What?
+	Never mind.
+	Barry: I prefer the simple life of pitting my wits, not my sword against my opponent.
+	I see.
+	Barry: Would you like to play a game with me?
+	Barry: A game of cunning. If you beat me, I will give you a clue on your quest.
+	- [[Well, yeah, obviously|I'd love to|Count me in]]
+		Barry: Great! 
+		=>< nim_rules
+		Barry: Let's go!
+		=> play_nim
+	- Not right now, maybe later.
+		Barry: Understood. Hope to see you later friend.
+		=> END
+else
+	Barry: Fancy a game?
+	- Sure, can you remind me the rules?
+		=>< nim_rules
+		Barry: Here we go
+		=> play_nim
+	- Yep, Let's do this
+		Barry: OK then!
+		=> play_nim
+	- Actually, can you remind me the secret letter? [if GameManager.beaten_barry == true]
+		Barry: Sure, it's the letter "S", now be on your way!
+		=> END
+	- Nah, maybe later.
+		Barry: Oh. OK!
+		=> END
+
+~ nim_rules
+Barry: The rules are simple.
+Barry: I will pick a number of matches.
+Barry: You can take 1, 2 or 3 matches.
+Barry: I will do the same and we'll take it in turns.
+Barry: The person left with the last match is the loser.
+Barry: I will make it so you can always win!
+=> END
+
+~ play_nim
+do GameManager.start_nim()
+while GameManager.nim_num_matches > 1
+	Barry: There are {{GameManager.nim_num_matches}} matches left. How many would you like to take?
+	- Take 1 match
+		do GameManager.nim_num_matches -= 1
+	- Take 2 matches [if GameManager.nim_num_matches > 2]
+		do GameManager.nim_num_matches -= 2
+	- Take 3 matches [if GameManager.nim_num_matches > 3]
+		do GameManager.nim_num_matches -= 3
+	Barry: That leaves {{GameManager.nim_num_matches}} match[if GameManager.nim_num_matches > 1]es[/if].
+	if GameManager.nim_num_matches == 1
+		Barry: You win!
+		if GameManager.beaten_barry == false
+			Barry: I knew you could do it.
+			Barry: Let me tell you that the secret letter is "S".
+			Barry: I'm sure all the letters you gather will mean something.
+		else
+			Barry: You're really getting the hang of this. Well done!
+		set GameManager.beaten_barry = true
+		=> END
+	else
+		Barry: OK, my turn.
+		Barry: So there's {{GameManager.nim_num_matches}} matches left.
+		Barry: I'm going to take {{GameManager.nim_num_matches_to_take()}} match[if GameManager.nim_num_matches_to_take() > 1]es[/if].
+		do GameManager.nim_num_matches -= GameManager.nim_num_matches_to_take()
+		Barry: That leaves {{GameManager.nim_num_matches}} match[if GameManager.nim_num_matches > 1]es[/if].
+	if GameManager.nim_num_matches == 1
+		Barry: I win!
+		Barry: Keep trying scamp. 
+		=> END
 => END
