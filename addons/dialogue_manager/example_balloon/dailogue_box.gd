@@ -56,8 +56,10 @@ var dialogue_line: DialogueLine:
 			character_label.text = tr(dialogue_line.character, "dialogue")
 			_update_character_texture(dialogue_line.character)
 		else:
+			character_label.visible = true
+			character_label.text = "Knight"
 			_update_character_texture("knight")
-			character_label.visible = false
+			#character_label.visible = false
 
 		dialogue_label.hide()
 		dialogue_label.dialogue_line = dialogue_line
@@ -102,12 +104,11 @@ func _ready() -> void:
 func _update_character_texture(name:String):
 	var image_filename = "%s%s.png" % [ character_images_folder, name.to_lower()]
 
-	if FileAccess.file_exists(image_filename):
-		var img = Image.load_from_file(image_filename)
-		character_image.texture = ImageTexture.create_from_image(img)
-	else:
-		var img = Image.load_from_file("res://icon.svg")
-		character_image.texture = ImageTexture.create_from_image(img)
+	#if FileAccess.file_exists(image_filename):
+	character_image.texture = load(image_filename)
+	# TODO - Sort out what happens if there's no image.
+	#else:
+		#character_image.texture = load("res://icon.svg")
 
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing

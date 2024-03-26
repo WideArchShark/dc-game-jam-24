@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://duyrcaedb5tub"]
+[gd_scene load_steps=9 format=3 uid="uid://duyrcaedb5tub"]
 
 [ext_resource type="Texture2D" uid="uid://dx1pkwftvrhye" path="res://assets/meshes/chest_dungeon_texture.png" id="1_726yr"]
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_lm1ku"]
-[ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="3_w6tob"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_500i0"]
 resource_name = "texture"
@@ -94,7 +93,3 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_vpwsp")
-
-[node name="Interactable" parent="." instance=ExtResource("3_w6tob")]
-
-[connection signal="on_interact" from="Interactable" to="." method="_on_interactable_on_interact"]

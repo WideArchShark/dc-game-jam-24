@@ -1,0 +1,9 @@
+~ dungeon_maze_door
+if GameManager.dungeon_maze_completed == true
+	You're all done with this door. Nice work!
+elif GameManager.dungeon_maze_door_unlocked == true
+	do GameManager.main_scene.get_node("Walls/MazeDoor").open_door()
+	do GameManager.load_dungeon_maze()
+else:
+	Seems to be locked. Maybe that skeleton knows something?
+=> END

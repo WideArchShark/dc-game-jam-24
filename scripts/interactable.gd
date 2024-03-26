@@ -12,6 +12,8 @@ signal interact_finished()
 
 func interact():
 	if interaction_type == InteractionType.DIALOGUE:
+		print(dialogue_resource)
+		print(dialogue_title)
 		DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_title)
 		await DialogueManager.dialogue_ended
 		interact_finished.emit()

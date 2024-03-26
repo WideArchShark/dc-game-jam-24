@@ -1,4 +1,13 @@
 ~ entrance_door
 This door's shut. Looks like we need to find another way out.
 
+~ chest
+set GameManager.dungeon_maze_completed = true
+set GameManager.dungeon_maze_scene.get_node("ChestPosition/MazeChest/Interactable").is_interactable = false
+do GameManager.dungeon_maze_scene.get_node("ChestPosition/MazeChest").open_chest()
+do GameManager.dungeon_maze_scene.get_node("ChestPosition/Key/AnimationPlayer").play("rise")
+Oh wow. There's a key in here!
+There's something written on it too, but it's very small.
+Guess I'll hand this back to old Skelly to see what it says.
+do GameManager.load_main_scene_from_dungeon_maze()
 => END

@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dy7jonywr1kuo" path="res://assets/meshes/wall_doorway_dungeon_texture.png" id="8_53gua"]
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="9_vl6pm"]
 [ext_resource type="Resource" uid="uid://l2duvm885kkb" path="res://dialogue_resources/dungeon_maze.dialogue" id="13_krb2x"]
-[ext_resource type="PackedScene" uid="uid://dkkyok14qp1ce" path="res://assets/characters/skeleton_minion.tscn" id="13_rmt5p"]
-[ext_resource type="Script" path="res://scripts/maze_skeleton.gd" id="14_cdvo0"]
+[ext_resource type="PackedScene" uid="uid://duyrcaedb5tub" path="res://scenes/chest.tscn" id="14_oys44"]
+[ext_resource type="PackedScene" uid="uid://btd45s5gmp0fa" path="res://scenes/key.tscn" id="16_gcmdf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iuaqg"]
 sky_top_color = Color(0.603922, 0.623529, 0.647059, 1)
@@ -28,7 +28,6 @@ sky_material = SubResource("ProceduralSkyMaterial_iuaqg")
 [sub_resource type="Environment" id="Environment_qtq8o"]
 background_mode = 2
 sky = SubResource("Sky_5u0l0")
-glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvp22"]
 resource_name = "texture"
@@ -106,8 +105,8 @@ size = Vector3(2, 2, 0.4)
 
 [node name="DungeonMaze" type="Node3D"]
 script = ExtResource("1_sikr5")
-width = 12
-height = 8
+width = 14
+height = 10
 floor_tile = ExtResource("2_8e8jh")
 wall_tile = Array[PackedScene]([ExtResource("3_n8avr"), ExtResource("4_phg4j"), ExtResource("5_misin")])
 pillar = ExtResource("4_c8uid")
@@ -156,10 +155,6 @@ interaction_type = 1
 dialogue_resource = ExtResource("13_krb2x")
 dialogue_title = "entrance_door"
 
-[node name="Skeleton_Minion" parent="." instance=ExtResource("13_rmt5p")]
-transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 22, 0, 14)
-script = ExtResource("14_cdvo0")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.401596, 0.915817, 0, -0.915817, 0.401596, 0, 8.43325, 0)
 light_color = Color(0.301961, 0.282353, 0.231373, 1)
@@ -169,4 +164,33 @@ shadow_enabled = true
 directional_shadow_mode = 1
 sky_mode = 1
 
-[connection signal="player_moved" from="FPSGridPlayer" to="Skeleton_Minion" method="_on_fps_grid_player_player_moved"]
+[node name="ChestPosition" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 26, 0, 20)
+
+[node name="FloorTile01" parent="ChestPosition" instance=ExtResource("2_8e8jh")]
+
+[node name="Wall01" parent="ChestPosition" instance=ExtResource("3_n8avr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, 0)
+
+[node name="Wall03" parent="ChestPosition" instance=ExtResource("5_misin")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0)
+
+[node name="Wall02" parent="ChestPosition" instance=ExtResource("4_phg4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Pillar" parent="ChestPosition" instance=ExtResource("4_c8uid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Pillar2" parent="ChestPosition" instance=ExtResource("4_c8uid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="MazeChest" parent="ChestPosition" instance=ExtResource("14_oys44")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.283916)
+
+[node name="Interactable" parent="ChestPosition/MazeChest" instance=ExtResource("9_vl6pm")]
+interaction_type = 1
+dialogue_resource = ExtResource("13_krb2x")
+dialogue_title = "chest"
+
+[node name="Key" parent="ChestPosition" instance=ExtResource("16_gcmdf")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.203327, 0.119408, 0.286844)

@@ -6,6 +6,7 @@ var trk:Node3D # Visual tracker for @tool mode
 
 var movement_progress:float = 0
 @onready var dungeon_maze_dialogue = preload("res://dialogue_resources/dungeon_maze.dialogue")
+@onready var chest_position = $ChestPosition
 
 signal maze_generated
 
@@ -16,7 +17,8 @@ signal maze_generated
 		generate_maze()
 		await maze_generated
 		generate_pillars()
-		place_skeleton()
+		move_chest()
+
 
 @export var width:int = 16
 @export var height:int = 12
@@ -33,8 +35,10 @@ func _ready():
 		generate_dungeon()
 		generate_maze()
 		generate_pillars()
-		place_skeleton()
-
+		move_chest()
+		GameManager.dungeon_maze_scene = self
+		
+		
 func generate_dungeon() -> void:
 	# make the north walls
 	# Notice we start at 1. That's because we have a static door top left.
@@ -42,7 +46,7 @@ func generate_dungeon() -> void:
 		var wl:Node3D = wall_tile.pick_random().instantiate()
 		add_child(wl)
 		wl.name = "%d,%d - N" % [x,0]
-		wl.global_position = Vector3(x * tile_size, 0, 0 - (tile_size/2))
+		wl.global_position = Vector3(x * tile_size, 0, 0 - int(tile_size/2))
 		wl.add_to_group("dungeon")
 		
 	# make the west walls
@@ -50,7 +54,7 @@ func generate_dungeon() -> void:
 		var wl:Node3D = wall_tile.pick_random().instantiate()
 		add_child(wl)
 		wl.name = "%d,%d - W" % [0,y]
-		wl.global_position = Vector3(0 	- (tile_size/2), 0, y * tile_size)
+		wl.global_position = Vector3(0 - int(tile_size/2), 0, y * tile_size)
 		wl.rotate_y(deg_to_rad(90))
 		wl.add_to_group("dungeon")
 	
@@ -66,16 +70,17 @@ func generate_dungeon() -> void:
 			var south_wall:Node3D = wall_tile.pick_random().instantiate()
 			south_wall.name = "%d,%d - S" % [x,y]
 			add_child(south_wall)
-			south_wall.global_position = Vector3(x * tile_size, 0, (y * tile_size) + (tile_size / 2))
+			south_wall.global_position = Vector3(x * tile_size, 0, (y * tile_size) + int(tile_size / 2))
 			south_wall.add_to_group("dungeon")
 			
 			var east_wall:Node3D = wall_tile.pick_random().instantiate()
 			east_wall.name = "%d,%d - E" % [x,y]
 			add_child(east_wall)
 			east_wall.rotate_y(deg_to_rad(90))
-			east_wall.global_position = Vector3((x * tile_size) + (tile_size / 2), 0, y * tile_size)
+			east_wall.global_position = Vector3((x * tile_size) + int(tile_size / 2), 0, y * tile_size)
 			east_wall.add_to_group("dungeon")
-
+	get_tree().get_nodes_in_group("dungeon").filter(func(n:Node): return n.name=="%d,%d - S" % [width-1,height-1])[0].free()
+	
 func generate_maze() -> void:
 	if Engine.is_editor_hint():
 		trk = tracker.instantiate()
@@ -88,7 +93,7 @@ func generate_maze() -> void:
 	cells.clear()
 	cells.resize(width*height)
 	
-	var walk_stack:Array[Cell]
+	var walk_stack:Array[Cell] = []
 	
 	for y in height:
 		for x in width:
@@ -169,7 +174,7 @@ func cell_visited(x:int, y:int) -> bool:
 
 # For a given x,y position, this function returns the array of unvisited neighbouring cells.
 func available_cells(x:int, y:int) -> Array[Cell]:
-	var av_cells:Array[Cell]
+	var av_cells:Array[Cell] = []
 	
 	if x == 0 and y == 0:
 		av_cells.append(cells[x + ((y+1)*width)])
@@ -189,14 +194,14 @@ func available_cells(x:int, y:int) -> Array[Cell]:
 	
 	return av_cells
 
-func place_skeleton():
-	$Skeleton_Minion.global_position = Vector3((width-1)*tile_size,0,(height-1)*tile_size)
-
 # Does a cleanup of the current maze. 
 func clear_dungeon() -> void:
 	for obj in get_tree().get_nodes_in_group("dungeon"):
 		obj.free()
 
+func move_chest():
+	chest_position.global_position = Vector3((width-1)*tile_size,0,height*tile_size)
+	
 #func _on_entrance_door_interact():
 	#$EntranceDoor/Interactable.is_interactable = false
 	#DialogueManager.show_dialogue_balloon(dungeon_maze_dialogue, "entrance_door")

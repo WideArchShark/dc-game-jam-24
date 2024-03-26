@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cul5mxe6hvw6h" path="res://scenes/archway.tscn" id="4_pysut"]
 [ext_resource type="PackedScene" uid="uid://sx3bykbt5ury" path="res://scenes/pillar.tscn" id="5_mvoj8"]
 [ext_resource type="PackedScene" uid="uid://duyrcaedb5tub" path="res://scenes/chest.tscn" id="6_8450u"]
-[ext_resource type="PackedScene" uid="uid://x5rfw2sjg2r" path="res://door.tscn" id="7_pvh51"]
+[ext_resource type="PackedScene" uid="uid://x5rfw2sjg2r" path="res://scenes/door.tscn" id="7_pvh51"]
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="8_sx3wg"]
 [ext_resource type="AudioStream" uid="uid://ix2f3usruwnp" path="res://assets/audio/08_Step_rock_02.wav" id="8_wjf5s"]
 [ext_resource type="PackedScene" uid="uid://dey85gerlvvcm" path="res://scenes/fps_grid_player.tscn" id="9_4n5n0"]

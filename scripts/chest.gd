@@ -5,14 +5,15 @@ extends StaticBody3D
 
 var opened:bool = false
 
-func chest_interact():
-	$Interactable.is_interactable = false # Can only interact with this once.
+func open_chest():
 	if !opened:
+		opened = true
 		var tween = get_tree().create_tween()
 		tween.tween_property(chest_lid, "rotation", Vector3(-PI/4,0,0), 1).set_trans(Tween.TRANS_ELASTIC)
-		opened = true
-		await tween.finished
-		$Interactable.mark_interaction_finished()
 
-func _on_interactable_on_interact():
-	chest_interact()
+func close_chest():
+	if opened:
+		opened = false
+		var tween = get_tree().create_tween()
+		tween.tween_property(chest_lid, "rotation", Vector3(0,0,0), 1).set_trans(Tween.TRANS_ELASTIC)
+

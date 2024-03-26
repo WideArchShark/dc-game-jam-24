@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6pkts38ivp77"]
+[gd_scene load_steps=24 format=3 uid="uid://c6pkts38ivp77"]
 
 [ext_resource type="PackedScene" uid="uid://b6rjdn4hiy43q" path="res://scenes/dirt_tile_01.tscn" id="1_y4xav"]
+[ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_y7yda"]
 [ext_resource type="PackedScene" uid="uid://jg4enue2yu58" path="res://scenes/dirt_tile_02.tscn" id="2_c3ecj"]
 [ext_resource type="PackedScene" uid="uid://bfcoh353vwdly" path="res://scenes/dirt_tile_03.tscn" id="3_3e50y"]
 [ext_resource type="PackedScene" uid="uid://bfj7q25fag4l6" path="res://scenes/crypt.tscn" id="4_fneg7"]
@@ -9,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://d2orvs5xdi1hx" path="res://scenes/wall_02.tscn" id="7_5d6tt"]
 [ext_resource type="PackedScene" uid="uid://bmvasc1s2mi4g" path="res://scenes/wall_03.tscn" id="8_eagu4"]
 [ext_resource type="PackedScene" uid="uid://sx3bykbt5ury" path="res://scenes/pillar.tscn" id="9_en3k5"]
-[ext_resource type="PackedScene" uid="uid://x5rfw2sjg2r" path="res://door.tscn" id="10_vpeua"]
+[ext_resource type="PackedScene" uid="uid://x5rfw2sjg2r" path="res://scenes/door.tscn" id="10_vpeua"]
 [ext_resource type="PackedScene" uid="uid://dey85gerlvvcm" path="res://scenes/fps_grid_player.tscn" id="11_ccs1u"]
 [ext_resource type="AudioStream" uid="uid://ix2f3usruwnp" path="res://assets/audio/08_Step_rock_02.wav" id="12_mggj8"]
+[ext_resource type="Resource" uid="uid://gebmmiy5i2nr" path="res://dialogue_resources/crypt_door.dialogue" id="12_sl6v4"]
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="13_iy5fp"]
-[ext_resource type="PackedScene" uid="uid://cvfojsj5dlwrd" path="res://assets/characters/mage.tscn" id="14_veyvl"]
+[ext_resource type="Resource" uid="uid://b5t4d8intre30" path="res://dialogue_resources/main_scene.dialogue" id="13_xdx6s"]
 [ext_resource type="PackedScene" uid="uid://dkkyok14qp1ce" path="res://assets/characters/skeleton_minion.tscn" id="15_k1rqp"]
 [ext_resource type="Script" path="res://scripts/skeleton_minion.gd" id="16_kw2ms"]
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="17_134oc"]
@@ -31,9 +33,9 @@ sky_material = SubResource("ProceduralSkyMaterial_8n8vd")
 [sub_resource type="Environment" id="Environment_n1r33"]
 background_mode = 2
 sky = SubResource("Sky_rqn5u")
-glow_enabled = true
 
 [node name="MainScene" type="Node3D"]
+script = ExtResource("1_y7yda")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_n1r33")
@@ -853,6 +855,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="Wall49" parent="Walls" instance=ExtResource("6_d634n")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 0, 15)
 
+[node name="Wall87" parent="Walls" instance=ExtResource("6_d634n")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 13)
+
 [node name="Wall55" parent="Walls" instance=ExtResource("6_d634n")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 0, 14)
 
@@ -870,9 +875,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0, 
 
 [node name="Wall53" parent="Walls" instance=ExtResource("7_5d6tt")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 14, 0, 13)
-
-[node name="Wall54" parent="Walls" instance=ExtResource("7_5d6tt")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 13)
 
 [node name="Wall85" parent="Walls" instance=ExtResource("8_eagu4")]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 24, 0, 13)
@@ -1038,11 +1040,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -7)
 
 [node name="CryptDoor" parent="Walls" instance=ExtResource("10_vpeua")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 12, 0, 9)
-door_sign = "The Crypt"
+door_sign = "Crypt"
+
+[node name="Interactable" parent="Walls/CryptDoor" instance=ExtResource("17_134oc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.754243)
+interaction_type = 1
+dialogue_resource = ExtResource("12_sl6v4")
+dialogue_title = "start"
 
 [node name="MazeDoor" parent="Walls" instance=ExtResource("10_vpeua")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 0, 13)
 door_sign = "Infinity Maze"
+
+[node name="Interactable" parent="Walls/MazeDoor" instance=ExtResource("17_134oc")]
+interaction_type = 1
+dialogue_resource = ExtResource("13_xdx6s")
+dialogue_title = "dungeon_maze_door"
 
 [node name="Crypt" parent="." instance=ExtResource("4_fneg7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 1)
@@ -1069,15 +1082,13 @@ shadow_enabled = true
 directional_shadow_mode = 1
 sky_mode = 1
 
-[node name="Mage" parent="." instance=ExtResource("14_veyvl")]
-
 [node name="Skeleton_Minion" parent="." instance=ExtResource("15_k1rqp")]
-transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 10, 0, 13.262)
+transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 10, 0, 13.3693)
 script = ExtResource("16_kw2ms")
 
 [node name="Interactable" parent="Skeleton_Minion" instance=ExtResource("17_134oc")]
 interaction_type = 1
 dialogue_resource = ExtResource("18_31scu")
-dialogue_title = "first_meeting"
+dialogue_title = "start"
 
-[connection signal="on_interact" from="Skeleton_Minion/Interactable" to="Skeleton_Minion" method="_on_interact"]
+[connection signal="on_interact" from="Walls/MazeDoor/Interactable" to="Walls/MazeDoor" method="open_door"]

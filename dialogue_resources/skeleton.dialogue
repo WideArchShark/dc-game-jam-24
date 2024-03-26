@@ -1,13 +1,23 @@
+~ start
+if GameManager.spoke_to_skeleton == false
+	=> first_meeting
+elif GameManager.dungeon_maze_completed == true
+	=> final_message
+elif GameManager.dungeon_maze_door_unlocked == true
+	Skeleton: What are you waiting for? Get into that Infinity Maze!
+	=> END
+elif GameManager.dungeon_maze_door_unlocked == false
+	=> enter_maze_decision
+
 ~ first_meeting
 Skeleton: Aha, just the sucker. I mean, brave young knight I've been looking for.
 Hmmm.
 Skeleton: What's up? Don't trust the undead? 
-do GameManager.load_dungeon_maze()
-=> END
-
-~ part_2
 Skeleton: Honestly, kids these days.
-Skeleton: Fact of the matter is I am eternally damned.
+Skeleton: Fact of the matter Geoff, is I am eternally damned.
+Hey, how did you know my name?
+Skeleton: It's one of the benefits of being undead. I know everything.
+Skeleton: And now I'm bored. I just want to rest!
 Skeleton: I am told there is a way to free my soul, but it requires solving an infinite dungeon.
 What? Infinitely large?!
 Skeleton: No, I don't think so. Just infinitely different each time you try it.
@@ -16,17 +26,32 @@ Skeleton: Or you could spend forever in a confused state, wondering the halls.
 Not sure I'm up for this to be honest.
 Skeleton: Don't worry, that's all hyperbole. It's not that hard. 
 Skeleton: Just trying to. You know. Set the mood.
-If you say so!
 So what do I have to do?
-Skeleton: I can transport you there. I think the secret scroll lies in a chest somewhere.
+Skeleton: I can unlock the door next to me. I think the secret scroll lies in a chest somewhere.
 Can't you go and find it?
 Skeleton: I can't. Whenever I try, the chest stays shut.
 Skeleton: If you can find the chest, I think you will be able to open it.
 Skeleton: If you find it, I'll teleport you back and give you a clue to help you on your quest.
+set GameManager.spoke_to_skeleton = true
 => enter_maze_decision
 
 ~ enter_maze_decision
 Skeleton: So. Want to try the maze?
 - Not yet, maybe in a bit => END
 - OK, let's do this!
+	Skeleton: Fabulous. The door next to me is now unlocked. Good luck!
+	set GameManager.dungeon_maze_door_unlocked = true
+	=> END
+	
+~ final_message
+Skeleton: Oh wow. You found it!
+Skeleton: But. But. It's just a key. No secret to eternal life.
+Looks like you were misinformed.
+Skeleton: Ho hum, more eternity for me. But wait. There's a letter on this key.
+Skeleton: The letter "E". E for eternity maybe?
+Skeleton: Just a guess, but you should probably remember that.
+Skeleton: You know, write it down or something.
+Skeleton: Anyway. Back to standing around for all eternity.
+Skeleton: Please leave me to stare at that wall for a thousand years.
+Sure.
 => END

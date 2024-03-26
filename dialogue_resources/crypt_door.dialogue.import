@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://gebmmiy5i2nr"
+path="res://.godot/imported/crypt_door.dialogue-a77ed09b537958b7f2805ecb9ad00af2.tres"
+
+[deps]
+
+source_file="res://dialogue_resources/crypt_door.dialogue"
+dest_files=["res://.godot/imported/crypt_door.dialogue-a77ed09b537958b7f2805ecb9ad00af2.tres"]
+
+[params]
+
+defaults=true
