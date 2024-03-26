@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://qgatxrhusk7y"]
+[gd_scene load_steps=25 format=3 uid="uid://qgatxrhusk7y"]
 
 [ext_resource type="Script" path="res://scripts/dungeon_maze_generator.gd" id="1_sikr5"]
 [ext_resource type="PackedScene" uid="uid://ciugkqjtkgb07" path="res://scenes/floor_tile_01.tscn" id="2_8e8jh"]
@@ -12,22 +12,22 @@
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="7_jybo4"]
 [ext_resource type="Texture2D" uid="uid://dy7jonywr1kuo" path="res://assets/meshes/wall_doorway_dungeon_texture.png" id="8_53gua"]
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="9_vl6pm"]
+[ext_resource type="Resource" uid="uid://l2duvm885kkb" path="res://dialogue_resources/dungeon_maze.dialogue" id="13_krb2x"]
 [ext_resource type="PackedScene" uid="uid://dkkyok14qp1ce" path="res://assets/characters/skeleton_minion.tscn" id="13_rmt5p"]
 [ext_resource type="Script" path="res://scripts/maze_skeleton.gd" id="14_cdvo0"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7b4si"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iuaqg"]
 sky_top_color = Color(0.603922, 0.623529, 0.647059, 1)
 sky_horizon_color = Color(0.700981, 0.698132, 0.695015, 1)
 sky_energy_multiplier = 2.15
 ground_horizon_color = Color(0.700981, 0.698132, 0.695015, 1)
 
-[sub_resource type="Sky" id="Sky_xae8f"]
-sky_material = SubResource("ProceduralSkyMaterial_7b4si")
+[sub_resource type="Sky" id="Sky_5u0l0"]
+sky_material = SubResource("ProceduralSkyMaterial_iuaqg")
 
-[sub_resource type="Environment" id="Environment_mrgi1"]
+[sub_resource type="Environment" id="Environment_qtq8o"]
 background_mode = 2
-sky = SubResource("Sky_xae8f")
-tonemap_mode = 2
+sky = SubResource("Sky_5u0l0")
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvp22"]
@@ -114,7 +114,7 @@ pillar = ExtResource("4_c8uid")
 tracker = ExtResource("4_ypaf3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mrgi1")
+environment = SubResource("Environment_qtq8o")
 
 [node name="FPSGridPlayer" parent="." node_paths=PackedStringArray("walk_sound", "rotate_sound") instance=ExtResource("5_5dpu2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
@@ -130,9 +130,6 @@ bus = &"SFX"
 [node name="RotateSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("7_jybo4")
 bus = &"SFX"
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.0235008, 0.539991, -0.841343, -0.0150774, 0.841671, 0.53978, 0.99961, 9.30959e-10, 0.0279216, 0, 11.3952, 0)
 
 [node name="EntranceDoor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -155,10 +152,21 @@ shape = SubResource("BoxShape3D_fk718")
 
 [node name="Interactable" parent="EntranceDoor" instance=ExtResource("9_vl6pm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.71375)
+interaction_type = 1
+dialogue_resource = ExtResource("13_krb2x")
+dialogue_title = "entrance_door"
 
 [node name="Skeleton_Minion" parent="." instance=ExtResource("13_rmt5p")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 22, 0, 14)
 script = ExtResource("14_cdvo0")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.401596, 0.915817, 0, -0.915817, 0.401596, 0, 8.43325, 0)
+light_color = Color(0.301961, 0.282353, 0.231373, 1)
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+directional_shadow_mode = 1
+sky_mode = 1
+
 [connection signal="player_moved" from="FPSGridPlayer" to="Skeleton_Minion" method="_on_fps_grid_player_player_moved"]
-[connection signal="on_interact" from="EntranceDoor/Interactable" to="." method="_on_entrance_door_interact"]

@@ -25,13 +25,21 @@ var interactable:Node
 signal player_moved(new_pos:Vector3)
 
 func _ready():
+	GameManager.fps_camera = self
 	space_state = get_world_3d().direct_space_state
-	#await get_tree().create_timer(2).timeout
-	#DialogueManager.show_dialogue_balloon(TUTORIAL)
 	var tween = get_tree().create_tween()
 	tween.tween_property($Fader, "modulate", Color(0,0,0,0), 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func _on_waiting_state_entered():
+	# For reasons I don't really understand, this is getting called even if
+	# the scene has changed (so a new FPS Grid Player would be used anyway). So
+	# this little catch-all below closes this instance down if it's left the tree.
+	# This shows a sever lack of understand here. But it seems to stop a shed 
+	# load of errors being thrown. Look into this another time!
+	if !is_inside_tree():
+		queue_free()
+		return
+		
 	#current_rot = rotation_degrees.y
 	current_rot = transform.basis.get_euler().y
 	current_pos = global_position

@@ -5,7 +5,7 @@ var cells:Array[Cell]
 var trk:Node3D # Visual tracker for @tool mode
 
 var movement_progress:float = 0
-const dungeon_maze_dialogue = preload("res://dialogue_resources/dungeon_maze.dialogue")
+@onready var dungeon_maze_dialogue = preload("res://dialogue_resources/dungeon_maze.dialogue")
 
 signal maze_generated
 
@@ -197,10 +197,9 @@ func clear_dungeon() -> void:
 	for obj in get_tree().get_nodes_in_group("dungeon"):
 		obj.free()
 
-
-func _on_entrance_door_interact():
-	$EntranceDoor/Interactable.is_interactable = false
-	DialogueManager.show_dialogue_balloon(dungeon_maze_dialogue, "entrance_door")
-	await DialogueManager.dialogue_ended
-	$EntranceDoor/Interactable.mark_interaction_finished()
+#func _on_entrance_door_interact():
+	#$EntranceDoor/Interactable.is_interactable = false
+	#DialogueManager.show_dialogue_balloon(dungeon_maze_dialogue, "entrance_door")
+	#await DialogueManager.dialogue_ended
+	#$EntranceDoor/Interactable.mark_interaction_finished()
 

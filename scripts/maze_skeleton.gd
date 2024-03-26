@@ -8,3 +8,4 @@ func _on_fps_grid_player_player_moved(new_pos):
 		rotation.y = deg_to_rad(-90)
 	else:
 		rotation.y = deg_to_rad(180)
+

@@ -29,6 +29,13 @@ var will_hide_balloon: bool = false
 ## The current line
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
+		# Looks like if the dialogue bubble causes a new scene load, there's 
+		# some residual stuff here that could get run before it gets freed. So
+		# go ahead and get rid of this!
+		if !is_inside_tree():
+			queue_free()
+			return
+			
 		is_waiting_for_input = false
 		balloon.focus_mode = Control.FOCUS_ALL
 		balloon.grab_focus()
@@ -102,12 +109,9 @@ func _update_character_texture(name:String):
 		var img = Image.load_from_file("res://icon.svg")
 		character_image.texture = ImageTexture.create_from_image(img)
 
-	
-	
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
-
 
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
@@ -116,11 +120,9 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	resource = dialogue_resource
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
-
 ## Go to the next line
 func next(next_id: String) -> void:
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
-
 
 ### Signals
 

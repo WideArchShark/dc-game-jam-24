@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bsiwtt03roq4d"]
 
 [ext_resource type="Texture2D" uid="uid://cklxt77u0hqid" path="res://assets/meshes/letter_barrel_dungeon_texture.png" id="1_bjmir"]
-[ext_resource type="Script" path="res://scenes/letter_barrel.gd" id="1_druf1"]
+[ext_resource type="Script" path="res://scripts/letter_barrel.gd" id="1_druf1"]
 [ext_resource type="Script" path="res://scripts/interactable.gd" id="4_3qjnb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_26u3r"]

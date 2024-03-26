@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dey85gerlvvcm" path="res://scenes/fps_grid_player.tscn" id="9_4n5n0"]
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="9_kmbts"]
 [ext_resource type="PackedScene" uid="uid://dkkyok14qp1ce" path="res://assets/characters/skeleton_minion.tscn" id="10_odvh8"]
-[ext_resource type="Script" path="res://assets/characters/skeleton_minion.gd" id="11_07h6x"]
+[ext_resource type="Script" path="res://scripts/skeleton_minion.gd" id="11_07h6x"]
 [ext_resource type="PackedScene" uid="uid://cvfojsj5dlwrd" path="res://assets/characters/mage.tscn" id="12_vnxee"]
 [ext_resource type="PackedScene" uid="uid://bsiwtt03roq4d" path="res://scenes/letter_barrel.tscn" id="18_pepa7"]
 [ext_resource type="PackedScene" uid="uid://c6pkts38ivp77" path="res://scenes/main_scene.tscn" id="19_t24lj"]

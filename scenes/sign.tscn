@@ -16,5 +16,5 @@ modulate = Color(0.384314, 0.27451, 0.14902, 1)
 text = "Solitude
 "
 font = ExtResource("2_a4vwg")
-font_size = 96
+font_size = 72
 outline_size = 8
