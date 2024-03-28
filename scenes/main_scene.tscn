@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c6pkts38ivp77"]
+[gd_scene load_steps=26 format=3 uid="uid://c6pkts38ivp77"]
 
 [ext_resource type="PackedScene" uid="uid://b6rjdn4hiy43q" path="res://scenes/dirt_tile_01.tscn" id="1_y4xav"]
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_y7yda"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="17_134oc"]
 [ext_resource type="Resource" uid="uid://dm2ytlc45oc71" path="res://dialogue_resources/skeleton.dialogue" id="18_31scu"]
 [ext_resource type="PackedScene" uid="uid://dcod6yyn6745m" path="res://assets/characters/barry.tscn" id="21_66v7f"]
+[ext_resource type="PackedScene" uid="uid://b6ndls4l44fyy" path="res://scenes/bookcase.tscn" id="22_n58e5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n8vd"]
 sky_top_color = Color(0.603922, 0.623529, 0.647059, 1)
@@ -811,9 +812,6 @@ transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 2, 0, -1
 [node name="Wall45" parent="Walls" instance=ExtResource("6_d634n")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 22, 0, -11)
 
-[node name="Wall36" parent="Walls" instance=ExtResource("6_d634n")]
-transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 12, 0, -11)
-
 [node name="Wall37" parent="Walls" instance=ExtResource("6_d634n")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 6, 0, -11)
 
@@ -1076,6 +1074,17 @@ interaction_type = 1
 dialogue_resource = ExtResource("13_xdx6s")
 dialogue_title = "dungeon_maze_door"
 
+[node name="PuzzleRoomsDoor" parent="Walls" node_paths=PackedStringArray("open_sound", "close_sound") instance=ExtResource("10_vpeua")]
+transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 12, 0, -11.0252)
+door_sign = "Puzzle Rooms"
+open_sound = NodePath("../MazeDoor/OpenSound")
+close_sound = NodePath("../MazeDoor/CloseSound")
+
+[node name="Interactable" parent="Walls/PuzzleRoomsDoor" instance=ExtResource("17_134oc")]
+interaction_type = 1
+dialogue_resource = ExtResource("13_xdx6s")
+dialogue_title = "puzzle_room_door"
+
 [node name="Crypt" parent="." instance=ExtResource("4_fneg7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 1)
 
@@ -1106,7 +1115,7 @@ transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 
 script = ExtResource("16_kw2ms")
 
 [node name="Interactable" parent="Skeleton_Minion" instance=ExtResource("17_134oc")]
-is_character_interaction = true
+dip_camera = true
 interaction_type = 1
 dialogue_resource = ExtResource("18_31scu")
 dialogue_title = "start"
@@ -1115,9 +1124,14 @@ dialogue_title = "start"
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.47113, 0, 2)
 
 [node name="Interactable" parent="Barry" instance=ExtResource("17_134oc")]
-is_character_interaction = true
+dip_camera = true
 interaction_type = 1
 dialogue_resource = ExtResource("13_xdx6s")
 dialogue_title = "barry"
+
+[node name="Bookcases" type="Node3D" parent="."]
+
+[node name="Bookcase" parent="Bookcases" instance=ExtResource("22_n58e5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.666405, 0, -9.99771)
 
 [connection signal="on_interact" from="Walls/MazeDoor/Interactable" to="Walls/MazeDoor" method="open_door"]

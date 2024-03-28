@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://cp2p2sfb38u7h"
+path="res://.godot/imported/rogue_puzzle_maze.dialogue-346eaa1434c36060305ed3ee75041161.tres"
+
+[deps]
+
+source_file="res://dialogue_resources/rogue_puzzle_maze.dialogue"
+dest_files=["res://.godot/imported/rogue_puzzle_maze.dialogue-346eaa1434c36060305ed3ee75041161.tres"]
+
+[params]
+
+defaults=true

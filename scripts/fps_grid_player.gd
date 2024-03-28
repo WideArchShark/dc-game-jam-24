@@ -14,6 +14,7 @@ const INTERACTABLE_COLLISION_MASK:int = 2 # The collision layer mask to check be
 var space_state:PhysicsDirectSpaceState3D
 var interactable_in_front:bool = false
 var interactable:Node
+var moving_finished:bool = false
 
 @export var movement_speed:float = 3
 @export var rotation_speed:float = 3
@@ -23,17 +24,19 @@ var interactable:Node
 @export var rotate_sound:AudioStreamPlayer
 
 signal player_moved(new_pos:Vector3)
+signal player_rotated(new_rot:float)
 
 func _ready():
 	GameManager.fps_camera = self
 	global_position = GameManager.starting_pos
 	rotation.y = GameManager.starting_rot
+	$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
 	
 	space_state = get_world_3d().direct_space_state
 	var tween = get_tree().create_tween()
 	tween.tween_property($Fader, "modulate", Color(0,0,0,0), 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
-func _process(delta):
+func _process(_delta):
 	$FPSLabel.text = "FPS: %d" % Engine.get_frames_per_second()
 	
 func _on_waiting_state_entered():
@@ -104,31 +107,34 @@ func _can_move(from:Vector3, to:Vector3):
 
 func _on_moving_state_entered():
 	walk_sound.play()
+	moving_finished = false
 
 func _on_moving_state_processing(delta):
-	if lerp_progress < 1:
+	if !moving_finished:
 		global_position = current_pos.lerp(target_pos, lerp_progress)
 		lerp_progress += delta * movement_speed
-	else:
-		global_position = Vector3(round(target_pos.x), global_position.y, round(target_pos.z))
-		player_moved.emit(global_position)
+		if lerp_progress >= 1:
+			moving_finished = true
+			global_position = Vector3(round(target_pos.x), global_position.y, round(target_pos.z))
 		
-		if get_tree().has_group("Actions") and get_tree().get_nodes_in_group("Actions").size()  > 0:
-			state_chart.send_event("to_actioning")
-		else:
-			state_chart.send_event("to_waiting")
+			if get_tree().has_group("Actions") and get_tree().get_nodes_in_group("Actions").size()  > 0:
+				state_chart.send_event("to_actioning")
+			else:
+				state_chart.send_event("to_waiting")
 
 func _on_rotating_state_entered():
 	rotate_sound.play()
 
 func _on_rotating_state_processing(delta):
-	#rotation.y = lerp_angle(deg_to_rad(current_rot), deg_to_rad(target_rot), lerp_progress)
+	# TODO - This actually continues to get called after the "send_event" takes
+	# place. That's because there's a timer on the state (0.1s) before going back
+	# to the "Waiting" state. Should probably stick a boolean in here to say "done"
+	# or something.
 	
-	if lerp_progress <= 1:
+	if lerp_progress < 1:
 		rotation.y = lerp_angle(current_rot, target_rot, lerp_progress)
 		lerp_progress += delta * rotation_speed
 	else:
-		#rotation_degrees.y = round(target_rot)
 		rotation.y = target_rot
 		state_chart.send_event("to_waiting")
 
@@ -147,7 +153,15 @@ func _on_actioning_state_entered():
 		await action.action_finished
 	state_chart.send_event("to_waiting")
 
-func _on_player_moved(new_pos):
+func _on_player_moved(_new_pos):
 		GameManager.moves_remaining -= 1
 		$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
 		
+func _on_moving_state_exited():
+	GameManager.moves_remaining -= 1
+	$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
+	player_moved.emit(global_position)
+
+func _on_rotating_state_exited():
+	player_rotated.emit(rotation.y)
+

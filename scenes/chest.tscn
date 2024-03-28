@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://duyrcaedb5tub"]
+[gd_scene load_steps=11 format=3 uid="uid://duyrcaedb5tub"]
 
 [ext_resource type="Texture2D" uid="uid://dx1pkwftvrhye" path="res://assets/meshes/chest_dungeon_texture.png" id="1_726yr"]
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_lm1ku"]
+[ext_resource type="AudioStream" uid="uid://wphw2ywmfwij" path="res://assets/audio/01_chest_open_1.wav" id="3_1xryr"]
+[ext_resource type="AudioStream" uid="uid://c5024pxfk2i24" path="res://assets/audio/02_chest_close_1.wav" id="4_phhtt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_500i0"]
 resource_name = "texture"
@@ -75,8 +77,10 @@ shadow_mesh = SubResource("ArrayMesh_e48ot")
 [sub_resource type="BoxShape3D" id="BoxShape3D_vpwsp"]
 size = Vector3(2, 3, 2)
 
-[node name="Chest" type="StaticBody3D"]
+[node name="Chest" type="StaticBody3D" node_paths=PackedStringArray("open_sound", "close_sound")]
 script = ExtResource("1_lm1ku")
+open_sound = NodePath("OpenSound")
+close_sound = NodePath("CloseSound")
 
 [node name="chest2" type="Node3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -93,3 +97,11 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_vpwsp")
+
+[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1xryr")
+bus = &"SFX"
+
+[node name="CloseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_phhtt")
+bus = &"SFX"

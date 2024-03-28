@@ -1,0 +1,27 @@
+~ start
+if GameManager.puzzle_rooms_completed == true
+	Rogue: You again. 
+	Rogue: Don't tell me you forgot the letters?
+	Well, no. But remind me anyway.
+	Rogue: They're "A" and "R".
+	Rogue: You know, for Ancient Ruins.
+	OK, thanks. See you next time!
+	Rogue: Next time?
+else
+	Rogue: Holy cow. You found me!
+	I didn't know you were in here to be honest.
+	Rogue: Well, I can tell you, these ancient ruins are plain weird.
+	Rogue: Who sticks tiles all over the floor? It's just confusing.
+	Yeah, anyone would think it's a game or something.
+	Rogue: EXACTLY!
+	Rogue: Anyhow, on that point. Seems I'm going to give you two letters
+	OK
+	Rogue: Ready?
+	Yes!
+	Rogue: The two letters are "AR". You know, for these ancient ruins.
+	Rogue: Remember them, cos' if you need them again, you'll have to do this whole thing again!
+	A and R. Got it!
+	Rogue: OK kid, be seeing ya'
+	set GameManager.puzzle_rooms_completed = true
+do GameManager.load_main_scene_from_puzzle_rooms_scene()
+=> END

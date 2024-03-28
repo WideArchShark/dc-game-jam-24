@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://x5rfw2sjg2r"]
+[gd_scene load_steps=12 format=3 uid="uid://x5rfw2sjg2r"]
 
 [ext_resource type="Script" path="res://scripts/door.gd" id="1_5vnwm"]
 [ext_resource type="Texture2D" uid="uid://dy7jonywr1kuo" path="res://assets/meshes/wall_doorway_dungeon_texture.png" id="2_2rodl"]
 [ext_resource type="PackedScene" uid="uid://rifu0v6agti6" path="res://scenes/sign.tscn" id="4_5gjpr"]
+[ext_resource type="AudioStream" uid="uid://k240icsawimm" path="res://assets/audio/05_door_open_1.mp3" id="4_80ydu"]
+[ext_resource type="AudioStream" uid="uid://coew0hoh4k4s7" path="res://assets/audio/06_door_close_1.mp3" id="5_e4b2g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvp22"]
 resource_name = "texture"
@@ -78,9 +80,11 @@ shadow_mesh = SubResource("ArrayMesh_16srj")
 [sub_resource type="BoxShape3D" id="BoxShape3D_f5vkh"]
 size = Vector3(2, 3, 0.25)
 
-[node name="Door" type="Node3D"]
+[node name="Door" type="Node3D" node_paths=PackedStringArray("open_sound", "close_sound")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_5vnwm")
+open_sound = NodePath("OpenSound")
+close_sound = NodePath("CloseSound")
 
 [node name="wall_doorway2" type="Node3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -102,3 +106,9 @@ shape = SubResource("BoxShape3D_f5vkh")
 
 [node name="Sign" parent="wall_doorway2/wall_doorway/wall_doorway_door" instance=ExtResource("4_5gjpr")]
 transform = Transform3D(-0.7, 0, -1.50996e-07, 0, 1, 0, 1.05697e-07, 0, -1, 0.776789, 2.24027, 0.125)
+
+[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_80ydu")
+
+[node name="CloseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_e4b2g")

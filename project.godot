@@ -84,7 +84,7 @@ interact={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue_resources/mage.dialogue", "res://dialogue_resources/tutorial.dialogue", "res://dialogue_resources/dungeon_maze.dialogue", "res://dialogue_resources/skeleton.dialogue", "res://dialogue_resources/crypt_door.dialogue", "res://dialogue_resources/main_scene.dialogue", "res://main_scene.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue_resources/mage.dialogue", "res://dialogue_resources/tutorial.dialogue", "res://dialogue_resources/dungeon_maze.dialogue", "res://dialogue_resources/skeleton.dialogue", "res://dialogue_resources/crypt_door.dialogue", "res://dialogue_resources/main_scene.dialogue", "res://main_scene.dialogue", "res://dialogue_resources/rogue_puzzle_maze.dialogue", "res://dialogue_resources/bookshelves.dialogue")
 
 [layer_names]
 

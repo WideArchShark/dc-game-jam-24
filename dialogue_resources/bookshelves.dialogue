@@ -1,0 +1,8 @@
+~ start
+if GameManager.books_read == 0
+	This looks like nonsense to me.
+else
+	I love reading, I've read {{GameManager.books_read}} books so far!
+
+do GameManager.books_read += 1
+=> END

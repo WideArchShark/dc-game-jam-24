@@ -5,10 +5,10 @@ signal action_finished()
 
 @export var is_actionable:bool = true
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	add_to_group("Actions")
 
-func _on_body_exited(body):
+func _on_body_exited(_body):
 	remove_from_group("Actions")
 
 func do_action():

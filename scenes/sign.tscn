@@ -9,7 +9,7 @@
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="SignLabel" type="Label3D" parent="."]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.026089, -0.0520542)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.0198569, -0.0520542)
 double_sided = false
 alpha_cut = 1
 modulate = Color(0.384314, 0.27451, 0.14902, 1)

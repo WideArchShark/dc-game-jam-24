@@ -5,13 +5,18 @@ if GameManager.dungeon_maze_completed == true
 elif GameManager.dungeon_maze_door_unlocked == true
 	do GameManager.main_scene.get_node("Walls/MazeDoor").open_door()
 	do GameManager.load_dungeon_maze()
+	=> END
 else:
 	Seems to be locked. Maybe that skeleton knows something?
 	=> END
 
+~ puzzle_room_door
+do GameManager.main_scene.get_node("Walls/PuzzleRoomsDoor").open_door()
+do GameManager.load_puzzle_rooms()
+=> END
+	
 ~ barry
 if GameManager.spoke_to_barry == false
-	set GameManager.spoke_to_barry = true
 	Barry: Hey there knight. 
 	Barry: The name's Barry. Barry the ex Barbarian.
 	Ex barbarian lol. Changed your ways?
@@ -25,6 +30,7 @@ if GameManager.spoke_to_barry == false
 	Never mind.
 	Barry: I prefer the simple life of pitting my wits, not my sword against my opponent.
 	I see.
+	set GameManager.spoke_to_barry = true
 	Barry: Would you like to play a game with me?
 	Barry: A game of cunning. If you beat me, I will give you a clue on your quest.
 	- [[Well, yeah, obviously|I'd love to|Count me in]]

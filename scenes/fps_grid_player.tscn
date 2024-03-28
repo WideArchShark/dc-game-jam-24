@@ -10,6 +10,20 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hp6lu"]
 height = 1.0
 
+[sub_resource type="Animation" id="Animation_li4g0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_t2n3c"]
 resource_name = "look_down"
 length = 0.5
@@ -23,20 +37,6 @@ tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.261799, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
-}
-
-[sub_resource type="Animation" id="Animation_li4g0"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cml2j"]
@@ -110,6 +110,7 @@ script = ExtResource("4_vk7y3")
 script = ExtResource("5_kqf16")
 to = NodePath("../../Waiting")
 event = &"to_waiting"
+delay_seconds = 0.25
 
 [node name="Actioning" type="Node" parent="StateChart/PlayerStates"]
 script = ExtResource("4_vk7y3")
@@ -118,6 +119,7 @@ script = ExtResource("4_vk7y3")
 script = ExtResource("5_kqf16")
 to = NodePath("../../Waiting")
 event = &"to_waiting"
+delay_seconds = 0.15
 
 [node name="InfoLabel" type="Label" parent="."]
 visible = false
@@ -176,8 +178,10 @@ libraries = {
 [connection signal="state_exited" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Moving" to="." method="_on_moving_state_entered"]
+[connection signal="state_exited" from="StateChart/PlayerStates/Moving" to="." method="_on_moving_state_exited"]
 [connection signal="state_processing" from="StateChart/PlayerStates/Moving" to="." method="_on_moving_state_processing"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_entered"]
+[connection signal="state_exited" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_exited"]
 [connection signal="state_processing" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_processing"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Interacting" to="." method="_on_interacting_state_entered"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Actioning" to="." method="_on_actioning_state_entered"]

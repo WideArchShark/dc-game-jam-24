@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://duntccqnvgk67"]
+
+[ext_resource type="PackedScene" uid="uid://c5wb55css65jl" path="res://assets/characters/character_rogue.gltf" id="1_6tpyv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3dyr3"]
+size = Vector3(1, 2, 1)
+
+[node name="Rogue" type="StaticBody3D"]
+
+[node name="character_rogue" parent="." instance=ExtResource("1_6tpyv")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_3dyr3")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://caixkovmp7tgw"]
+
+[ext_resource type="PackedScene" uid="uid://c4rejvtene7ta" path="res://assets/meshes/table_medium_decorated_B.gltf.glb" id="1_o5akl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ue64x"]
+
+[node name="Table" type="StaticBody3D"]
+
+[node name="table_medium_decorated_B_gltf" parent="." instance=ExtResource("1_o5akl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_ue64x")

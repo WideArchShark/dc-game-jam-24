@@ -188,6 +188,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.283916)
 
 [node name="Interactable" parent="ChestPosition/MazeChest" instance=ExtResource("9_vl6pm")]
+dip_camera = true
 interaction_type = 1
 dialogue_resource = ExtResource("13_krb2x")
 dialogue_title = "chest"
