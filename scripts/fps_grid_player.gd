@@ -9,7 +9,7 @@ var current_pos:Vector3
 var target_pos:Vector3
 var lerp_progress:float
 const OBSTACLE_COLLISION_MASK:int = 1 # The collision layer mask to check before moving.
-const INTERACTABLE_COLLISION_MASK:int = 2 # The collision layer mask to check before moving.
+const INTERACTABLE_COLLISION_MASK:int = 2 # The interactable layer mask to check before moving.
 
 var space_state:PhysicsDirectSpaceState3D
 var interactable_in_front:bool = false
@@ -54,8 +54,23 @@ func _on_waiting_state_entered():
 	current_pos = global_position
 	print("pos=",current_pos," rot=",rotation.y)
 	lerp_progress = 0
+	_check_for_game_completed()
+	_check_for_game_over()
+	_check_for_actionables()
 	_check_for_interactable()
 
+func _check_for_game_completed():
+	if GameManager.game_completed:
+		state_chart.send_event("to_game_completed")
+		
+func _check_for_game_over():
+	if GameManager.moves_remaining <= 0:
+		state_chart.send_event("to_game_over")
+		
+func _check_for_actionables():
+	if get_tree().has_group("Actions") and get_tree().get_nodes_in_group("Actions").size()  > 0:
+		state_chart.send_event("to_actioning")
+		
 func _check_for_interactable():
 	var h_rot = transform.basis.get_euler().y
 	var forward = Vector3.FORWARD.rotated(Vector3.UP, h_rot).normalized()
@@ -90,7 +105,7 @@ func _on_waiting_state_physics_processing(_delta):
 	elif Input.is_action_just_pressed("interact") and interactable_in_front and interactable.is_interactable:
 		$InfoLabel.visible = false
 		state_chart.send_event("to_interacting")
-		#await DialogueManager.dialogue_ended
+
 
 func _move(direction:Vector3):
 	var h_rot = transform.basis.get_euler().y
@@ -117,10 +132,10 @@ func _on_moving_state_processing(delta):
 			moving_finished = true
 			global_position = Vector3(round(target_pos.x), global_position.y, round(target_pos.z))
 		
-			if get_tree().has_group("Actions") and get_tree().get_nodes_in_group("Actions").size()  > 0:
-				state_chart.send_event("to_actioning")
-			else:
-				state_chart.send_event("to_waiting")
+			#if get_tree().has_group("Actions") and get_tree().get_nodes_in_group("Actions").size()  > 0:
+				#state_chart.send_event("to_actioning")
+			#else:
+			state_chart.send_event("to_waiting")
 
 func _on_rotating_state_entered():
 	rotate_sound.play()
@@ -151,12 +166,9 @@ func _on_actioning_state_entered():
 	for action in get_tree().get_nodes_in_group("Actions"):
 		action.call_deferred("do_action")
 		await action.action_finished
+		action.remove_from_group("Actions")
 	state_chart.send_event("to_waiting")
 
-func _on_player_moved(_new_pos):
-		GameManager.moves_remaining -= 1
-		$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
-		
 func _on_moving_state_exited():
 	GameManager.moves_remaining -= 1
 	$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
@@ -164,4 +176,25 @@ func _on_moving_state_exited():
 
 func _on_rotating_state_exited():
 	player_rotated.emit(rotation.y)
+
+func _on_game_over_state_entered():
+	var tween = get_tree().create_tween()
+	tween.tween_property($Fader, "modulate", Color(0,0,0,1), 2).set_trans(Tween.TRANS_SINE)
+	await tween.finished
+	$LargeMiddleLabel.text = "You ran out of moves\nTry Again"
+	$LargeMiddleLabel.visible = true
+	await get_tree().create_timer(6).timeout
+
+	get_tree().change_scene_to_file(GameManager.MENU)
+	
+func _on_game_completed_state_entered():
+	await get_tree().create_timer(10).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property($Fader, "modulate", Color(0,0,0,1), 2).set_trans(Tween.TRANS_SINE)
+	await tween.finished
+	$LargeMiddleLabel.text = "You completed the game\nwith %s moves remaining!" % GameManager.moves_remaining
+	$LargeMiddleLabel.visible = true
+	await get_tree().create_timer(6).timeout
+
+	get_tree().change_scene_to_file(GameManager.MENU)
 

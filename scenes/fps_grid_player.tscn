@@ -80,6 +80,21 @@ script = ExtResource("5_kqf16")
 to = NodePath("../../Interacting")
 event = &"to_interacting"
 
+[node name="ToActioning" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../Actioning")
+event = &"to_actioning"
+
+[node name="Transition" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../GameOver")
+event = &"to_game_over"
+
+[node name="ToGameCompleted" type="Node" parent="StateChart/PlayerStates/Waiting"]
+script = ExtResource("5_kqf16")
+to = NodePath("../../GameCompleted")
+event = &"to_game_completed"
+
 [node name="Moving" type="Node" parent="StateChart/PlayerStates"]
 script = ExtResource("4_vk7y3")
 
@@ -119,7 +134,12 @@ script = ExtResource("4_vk7y3")
 script = ExtResource("5_kqf16")
 to = NodePath("../../Waiting")
 event = &"to_waiting"
-delay_seconds = 0.15
+
+[node name="GameOver" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
+
+[node name="GameCompleted" type="Node" parent="StateChart/PlayerStates"]
+script = ExtResource("4_vk7y3")
 
 [node name="InfoLabel" type="Label" parent="."]
 visible = false
@@ -174,6 +194,21 @@ libraries = {
 "": SubResource("AnimationLibrary_cml2j")
 }
 
+[node name="LargeMiddleLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_220s4")
+theme_override_font_sizes/font_size = 92
+text = "SOME TEXT HERE"
+horizontal_alignment = 1
+
 [connection signal="state_entered" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_entered"]
 [connection signal="state_exited" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/PlayerStates/Waiting" to="." method="_on_waiting_state_physics_processing"]
@@ -185,3 +220,5 @@ libraries = {
 [connection signal="state_processing" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_processing"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Interacting" to="." method="_on_interacting_state_entered"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Actioning" to="." method="_on_actioning_state_entered"]
+[connection signal="state_entered" from="StateChart/PlayerStates/GameOver" to="." method="_on_game_over_state_entered"]
+[connection signal="state_entered" from="StateChart/PlayerStates/GameCompleted" to="." method="_on_game_completed_state_entered"]

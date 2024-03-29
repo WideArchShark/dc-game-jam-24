@@ -1,16 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6ndls4l44fyy"]
+[gd_scene load_steps=3 format=3 uid="uid://b6ndls4l44fyy"]
 
 [ext_resource type="PackedScene" uid="uid://bblbqweogrswq" path="res://assets/meshes/bookcase_single_decoratedB.gltf.glb" id="1_c7xo3"]
-[ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="2_82j84"]
-[ext_resource type="Resource" uid="uid://dosnqoc6uopyb" path="res://dialogue_resources/bookshelves.dialogue" id="3_ynn5h"]
+[ext_resource type="Script" path="res://scripts/bookcase.gd" id="1_iqcmt"]
 
 [node name="Bookcase" type="Node3D"]
+script = ExtResource("1_iqcmt")
 
 [node name="bookcase_single_decoratedB_gltf" parent="." instance=ExtResource("1_c7xo3")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-
-[node name="Interactable" parent="." instance=ExtResource("2_82j84")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.758695)
-interaction_type = 1
-dialogue_resource = ExtResource("3_ynn5h")
-dialogue_title = "start"

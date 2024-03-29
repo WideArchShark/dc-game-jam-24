@@ -1,8 +1,10 @@
 ~ start
-if GameManager.spoke_to_skeleton == false
+if GameManager.spoke_to_skeleton_after_maze_complete == true
+	=> leave_me_alone
+elif GameManager.spoke_to_skeleton == false
 	=> first_meeting
 elif GameManager.dungeon_maze_completed == true
-	=> final_message
+	=> congratulations
 elif GameManager.dungeon_maze_door_unlocked == true
 	Skeleton: What are you waiting for? Get into that Infinity Maze!
 	=> END
@@ -14,10 +16,7 @@ Skeleton: Aha, just the sucker. I mean, brave young knight I've been looking for
 Hmmm.
 Skeleton: What's up? Don't trust the undead? 
 Skeleton: Honestly, kids these days.
-Skeleton: Fact of the matter Geoff, is I am eternally damned.
-Hey, how did you know my name?
-Skeleton: It's one of the benefits of being undead. I know everything.
-Skeleton: And now I'm bored. I just want to rest!
+Skeleton: I've just had enough of eternity. I just want to rest!
 Skeleton: I am told there is a way to free my soul, but it requires solving an infinite dungeon.
 What? Infinitely large?!
 Skeleton: No, I don't think so. Just infinitely different each time you try it.
@@ -43,7 +42,7 @@ Skeleton: So. Want to try the maze?
 	set GameManager.dungeon_maze_door_unlocked = true
 	=> END
 	
-~ final_message
+~ congratulations
 Skeleton: Oh wow. You found it!
 Skeleton: But. But. It's just a key. No secret to eternal life.
 Looks like you were misinformed.
@@ -53,5 +52,12 @@ Skeleton: Just a guess, but you should probably remember that.
 Skeleton: You know, write it down or something.
 Skeleton: Anyway. Back to standing around for all eternity.
 Skeleton: Please leave me to stare at that wall for a thousand years.
+set GameManager.spoke_to_skeleton_after_maze_complete = true
 Sure.
+=> END
+
+~ leave_me_alone
+Skeleton: What? 
+Skeleton: The secret letter I'm giving you is "E"
+Skeleton: Now leave me alone.
 => END

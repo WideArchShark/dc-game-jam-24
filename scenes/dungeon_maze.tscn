@@ -169,6 +169,9 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 26, 0,
 
 [node name="FloorTile01" parent="ChestPosition" instance=ExtResource("2_8e8jh")]
 
+[node name="FloorTile02" parent="ChestPosition" instance=ExtResource("2_8e8jh")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2, 0)
+
 [node name="Wall01" parent="ChestPosition" instance=ExtResource("3_n8avr")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, 0)
 

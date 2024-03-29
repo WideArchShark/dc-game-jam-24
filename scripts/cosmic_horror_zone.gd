@@ -7,6 +7,8 @@ var _room3_failed:bool = false
 var pattern1:String = "OXI"
 var pattern3:String = "RGB"
 
+@onready var reset_sound = $SoundEffects/ResetSound
+
 func _ready():
 	reset_tiles1()
 	reset_tiles2()
@@ -79,22 +81,22 @@ func reset_tiles3():
 	_room3_failed = false
 
 	
-func _on_button1_interact():
+func _on_button1_interact(interactable:Interactable):
 	if !$Room1/Walls1/Door2.opened:
 		reset_tiles1()
-		$ResetSound.play()
+		reset_sound.play()
 	$Room1/Button1/Interactable.mark_interaction_finished()
 
-func _on_button2_interact():
+func _on_button2_interact(interactable:Interactable):
 	if _room2_started:
 		reset_tiles2()
-		$ResetSound.play()
+		reset_sound.play()
 	$Room2/Button2/Interactable.mark_interaction_finished()
 	
-func _on_button3_interact():
+func _on_button3_interact(interactable:Interactable):
 	if _room3_failed:
 		reset_tiles3()
-		$ResetSound.play()
+		reset_sound.play()
 	$Room3/Button3/Interactable.mark_interaction_finished()
 	
 func _on_room1_complete():

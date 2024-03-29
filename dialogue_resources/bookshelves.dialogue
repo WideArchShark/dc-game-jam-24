@@ -1,8 +1,50 @@
-~ start
-if GameManager.books_read == 0
-	This looks like nonsense to me.
+~ bookshelf_1
+if GameManager.book1_read == false
+	There's a book on here about a pirate aboard a stolen naval ship.
+	set GameManager.book1_read = true
+	do GameManager.books_read += 1
+	=> bookshelf_summary
 else
-	I love reading, I've read {{GameManager.books_read}} books so far!
+	You've read this shelf, something about a pirate on a ship.
+=> END
 
-do GameManager.books_read += 1
+~ bookshelf_2
+if GameManager.book2_read == false
+	There's a book here about a town with no residents. How odd?
+	set GameManager.book2_read = true
+	do GameManager.books_read += 1
+	=> bookshelf_summary
+else
+	You've read this shelf, it's about an abandoned town.
+=> END
+
+~ bookshelf_3
+if GameManager.book3_read == false
+	There's a book here. It's about an alien that crashlanded.
+	No doubt it crashed in Nevada.
+	set GameManager.book3_read = true
+	do GameManager.books_read += 1
+	=> bookshelf_summary
+else
+	You've read this shelf, it's about aliens or something.
+=> END
+
+~ bookshelf_4
+if GameManager.book4_read == false
+	There's a childrens book about getting home safely.
+	set GameManager.book4_read = true
+	do GameManager.books_read += 1
+	=> bookshelf_summary
+else
+	You've read this shelf, it's a child safety book.
+=> END
+
+~ bookshelf_summary
+if GameManager.books_read == 4
+	Looks like I've read all of the books around here.
+	if GameManager.spoken_to_mage
+		I think I have an idea for a story for the mage.
+		I should go and speak to him.
+	else
+		I wonder if anyone can make use of the stories?
 => END

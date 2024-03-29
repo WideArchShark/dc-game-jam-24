@@ -1,6 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://pusqf0nukdv2"]
+[gd_scene load_steps=28 format=3 uid="uid://pusqf0nukdv2"]
 
-[ext_resource type="Script" path="res://scripts/cosmic_horror_zone.gd" id="1_1u03k"]
+[ext_resource type="Script" path="res://scripts/puzzle_rooms.gd" id="1_kiu1e"]
 [ext_resource type="PackedScene" uid="uid://dey85gerlvvcm" path="res://scenes/fps_grid_player.tscn" id="2_l8o1l"]
 [ext_resource type="AudioStream" uid="uid://ix2f3usruwnp" path="res://assets/audio/08_Step_rock_02.wav" id="3_nleht"]
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="4_ontdb"]
@@ -21,6 +21,8 @@
 [ext_resource type="AudioStream" uid="uid://dpqu0o1gpjsdi" path="res://assets/audio/070_Equip_10.wav" id="19_0cdd6"]
 [ext_resource type="PackedScene" uid="uid://duntccqnvgk67" path="res://assets/characters/rogue.tscn" id="20_s3heh"]
 [ext_resource type="Resource" uid="uid://cp2p2sfb38u7h" path="res://dialogue_resources/rogue_puzzle_maze.dialogue" id="21_h0oqi"]
+[ext_resource type="PackedScene" uid="uid://b6ndls4l44fyy" path="res://scenes/bookcase.tscn" id="22_fjehp"]
+[ext_resource type="Resource" uid="uid://dosnqoc6uopyb" path="res://dialogue_resources/bookshelves.dialogue" id="23_l6sea"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hjvk1"]
 sky_top_color = Color(0.603922, 0.623529, 0.647059, 1)
@@ -40,7 +42,7 @@ tonemap_mode = 2
 albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
 
 [node name="PuzzleRooms" type="Node3D"]
-script = ExtResource("1_1u03k")
+script = ExtResource("1_kiu1e")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_33hkp")
@@ -61,6 +63,9 @@ stream = ExtResource("3_nleht")
 
 [node name="RotateSoundEffect" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("4_ontdb")
+
+[node name="ResetSound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("19_0cdd6")
 
 [node name="Room1" type="Node3D" parent="."]
 
@@ -451,6 +456,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 2)
 [node name="FloorTile15" parent="Room3/FloorTiles3" instance=ExtResource("5_8qtnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -2)
 
+[node name="FloorTile16" parent="Room3/FloorTiles3" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
+
+[node name="FloorTile17" parent="Room3/FloorTiles3" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 2)
+
+[node name="FloorTile18" parent="Room3/FloorTiles3" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 2)
+
+[node name="FloorTile19" parent="Room3/FloorTiles3" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -2)
+
 [node name="Walls3" type="Node3D" parent="Room3"]
 
 [node name="Wall01" parent="Room3/Walls3" instance=ExtResource("6_amrbc")]
@@ -513,18 +530,6 @@ door_sign = "Exit"
 open_sound = NodePath("../../../Room1/Walls1/Door1/OpenSound")
 close_sound = NodePath("../../../Room1/Walls1/Door1/CloseSound")
 
-[node name="FloorTile13" parent="Room3/Walls3" instance=ExtResource("5_8qtnw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
-
-[node name="FloorTile16" parent="Room3/Walls3" instance=ExtResource("5_8qtnw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 2)
-
-[node name="FloorTile14" parent="Room3/Walls3" instance=ExtResource("5_8qtnw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 2)
-
-[node name="FloorTile15" parent="Room3/Walls3" instance=ExtResource("5_8qtnw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -2)
-
 [node name="Wall19" parent="Room3/Walls3" instance=ExtResource("6_amrbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 1)
 
@@ -567,7 +572,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -3)
 [node name="Spinner" parent="Room3/Walls3" instance=ExtResource("15_cksu8")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0.2, 2.8)
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Room3/Walls3"]
+[node name="SpinnerHolderBar" type="CSGCylinder3D" parent="Room3/Walls3"]
 transform = Transform3D(-2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0, 1, -5, 0.820094, 2.95069)
 material_override = SubResource("StandardMaterial3D_ocfih")
 radius = 0.1
@@ -665,21 +670,231 @@ transform = Transform3D(0.75, 0, 0, 0, -3.27835e-08, 0.75, 0, -0.75, -3.27835e-0
 [node name="Interactable" parent="Room3/Button3" instance=ExtResource("12_261un")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.518051, 1.29467)
 
-[node name="ResetSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_0cdd6")
+[node name="Table" parent="Room3" instance=ExtResource("14_b8wgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -2)
 
-[node name="Rogue" parent="." instance=ExtResource("20_s3heh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -43.4789, 0, 2)
+[node name="Rogue" parent="Room3" instance=ExtResource("20_s3heh")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.4789, 0, 2)
 
-[node name="Interactable" parent="Rogue" instance=ExtResource("12_261un")]
+[node name="Interactable" parent="Room3/Rogue" instance=ExtResource("12_261un")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.296658)
 dip_camera = true
 interaction_type = 1
 dialogue_resource = ExtResource("21_h0oqi")
 dialogue_title = "start"
 
-[node name="Table" parent="." instance=ExtResource("14_b8wgq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -2)
+[node name="Bookcase4" parent="Room3" instance=ExtResource("22_fjehp")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.64616, 0, 2)
+
+[node name="Interactable" parent="Room3/Bookcase4" instance=ExtResource("12_261un")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.551349, -0.688156)
+interaction_type = 1
+dialogue_resource = ExtResource("23_l6sea")
+dialogue_title = "bookshelf_4"
+
+[node name="CeilingTiles" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 4, 0)
+
+[node name="FloorTile01" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="FloorTile02" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+
+[node name="FloorTile03" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
+
+[node name="FloorTile04" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+
+[node name="FloorTile05" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 2)
+
+[node name="FloorTile06" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -2)
+
+[node name="FloorTile07" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
+
+[node name="FloorTile08" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 2)
+
+[node name="FloorTile09" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -2)
+
+[node name="FloorTile10" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
+
+[node name="FloorTile11" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 2)
+
+[node name="FloorTile12" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -2)
+
+[node name="FloorTile13" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, 0)
+
+[node name="FloorTile14" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, 2)
+
+[node name="FloorTile15" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -2)
+
+[node name="FloorTile16" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
+
+[node name="FloorTile17" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 2)
+
+[node name="FloorTile18" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -2)
+
+[node name="FloorTile19" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 0)
+
+[node name="FloorTile20" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 2)
+
+[node name="FloorTile21" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, -2)
+
+[node name="FloorTile22" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 0)
+
+[node name="FloorTile23" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 2)
+
+[node name="FloorTile24" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, -2)
+
+[node name="FloorTile25" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2, 0)
+
+[node name="FloorTile26" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2, 2)
+
+[node name="FloorTile27" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2, -2)
+
+[node name="FloorTile28" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, 0)
+
+[node name="FloorTile29" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, 2)
+
+[node name="FloorTile30" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, -2)
+
+[node name="FloorTile31" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 0)
+
+[node name="FloorTile32" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 2)
+
+[node name="FloorTile33" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -2)
+
+[node name="FloorTile34" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 0)
+
+[node name="FloorTile35" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 2)
+
+[node name="FloorTile36" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, -2)
+
+[node name="FloorTile37" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 2, 0)
+
+[node name="FloorTile38" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 2, 2)
+
+[node name="FloorTile39" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 2, -2)
+
+[node name="FloorTile40" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, 0)
+
+[node name="FloorTile41" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, 2)
+
+[node name="FloorTile42" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, -2)
+
+[node name="FloorTile43" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, 0)
+
+[node name="FloorTile44" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, 2)
+
+[node name="FloorTile45" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, -2)
+
+[node name="FloorTile46" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2, 0)
+
+[node name="FloorTile47" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2, 2)
+
+[node name="FloorTile48" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2, -2)
+
+[node name="FloorTile49" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, 0)
+
+[node name="FloorTile50" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, 2)
+
+[node name="FloorTile51" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, -2)
+
+[node name="FloorTile52" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 2, 0)
+
+[node name="FloorTile53" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 2, 2)
+
+[node name="FloorTile54" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 2, -2)
+
+[node name="FloorTile55" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 0)
+
+[node name="FloorTile56" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 2)
+
+[node name="FloorTile57" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -2)
+
+[node name="FloorTile58" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 0)
+
+[node name="FloorTile59" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 2)
+
+[node name="FloorTile60" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, -2)
+
+[node name="FloorTile61" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 0)
+
+[node name="FloorTile62" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 2)
+
+[node name="FloorTile63" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, -2)
+
+[node name="FloorTile64" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 2, 0)
+
+[node name="FloorTile65" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 2, 2)
+
+[node name="FloorTile67" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, -7.10543e-15, 0, 7.10543e-15, 1, -44, 2, -2)
+
+[node name="FloorTile66" parent="CeilingTiles" instance=ExtResource("5_8qtnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 2, -2)
 
 [connection signal="tile_pressed" from="Room1/PressureTiles1/PressureTile01" to="." method="_on_tile_pressed1"]
 [connection signal="tile_pressed" from="Room1/PressureTiles1/PressureTile02" to="." method="_on_tile_pressed1"]

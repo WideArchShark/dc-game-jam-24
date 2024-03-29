@@ -1,4 +1,5 @@
 extends Area3D
+class_name Actionable
 
 signal on_action()
 signal action_finished()

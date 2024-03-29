@@ -67,6 +67,13 @@ func generate_dungeon() -> void:
 			ft.global_position = Vector3(x * tile_size, 0, y * tile_size)
 			ft.add_to_group("dungeon")
 			
+			var ct:Node3D = floor_tile.instantiate()
+			add_child(ct)
+			ct.name = "%d,%d - C" % [x,y]
+			ct.global_position = Vector3(x * tile_size, 2, y * tile_size)
+			ct.rotation.x = deg_to_rad(180)
+			ct.add_to_group("dungeon")
+			
 			var south_wall:Node3D = wall_tile.pick_random().instantiate()
 			south_wall.name = "%d,%d - S" % [x,y]
 			add_child(south_wall)

@@ -55,43 +55,55 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 shape = SubResource("CylinderShape3D_26u3r")
 
 [node name="Interactable" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.315026)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("4_3qjnb")
+dip_camera = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.62)
 shape = SubResource("BoxShape3D_0xwck")
 
 [node name="letter_barrel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0, 0, 0)
 
 [node name="barrel_small" type="MeshInstance3D" parent="letter_barrel"]
-transform = Transform3D(0, 1, 1.49012e-07, -0.92388, -1.19209e-07, 0.382683, 0.382683, -1.19209e-07, 0.92388, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_xaqcf")
 skeleton = NodePath("")
 
-[node name="0" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000202358, 0.41353)
+[node name="Label0" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, -0.92388, 0.382683, 1, -5.70243e-08, -1.37669e-07, 1.55754e-07, 0.382683, 0.92388, 0.16149, -5.81743e-08, 0.3904)
+text = "0"
 
-[node name="1" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292554, 0.292266)
+[node name="Label1" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, -0.923879, -0.382684, 1, 5.70245e-08, -1.37669e-07, 1.55754e-07, -0.382684, 0.923879, -0.156942, -5.7631e-08, 0.386754)
+text = "1"
 
-[node name="2" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.413531, -0.000203833)
+[node name="Label2" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, -0.382683, -0.92388, 1, 1.37669e-07, -5.70243e-08, 1.55754e-07, -0.92388, 0.382683, -0.387261, -2.39028e-08, 0.160408)
+text = "2"
 
-[node name="3" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292267, -0.292555)
+[node name="Label3" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(1.67276e-08, 0.382683, -0.92388, 1, -4.37114e-08, 0, -4.03841e-08, -0.923879, -0.382684, -0.384672, 2.45796e-08, -0.164951)
+text = "3"
 
-[node name="4" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000202373, -0.413532)
+[node name="Label4" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, 0.92388, -0.382683, 1, 5.70243e-08, 1.37669e-07, 1.55754e-07, -0.382683, -0.92388, -0.16188, 5.81571e-08, -0.390285)
+text = "4"
 
-[node name="5" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.292554, -0.292268)
+[node name="Label5" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, 0.923879, 0.382684, 1, -5.70245e-08, 1.37669e-07, 1.55754e-07, 0.382684, -0.923879, 0.154533, 5.83242e-08, -0.391406)
+text = "5"
 
-[node name="6" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.413532, 0.000201628)
+[node name="Label6" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, 0.382683, 0.92388, 1, -1.37669e-07, 5.70243e-08, 1.55754e-07, 0.92388, -0.382683, 0.387444, 2.38815e-08, -0.160266)
+text = "6
+"
 
-[node name="7" type="Node3D" parent="letter_barrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.292268, 0.292553)
+[node name="Label7" type="Label3D" parent="letter_barrel/barrel_small"]
+transform = Transform3D(-6.45155e-08, -0.382684, 0.923879, 1, -1.37669e-07, -5.70245e-08, 1.55754e-07, 0.923879, 0.382684, 0.385019, -2.47041e-08, 0.165786)
+text = "7"
 
-[connection signal="on_interact" from="Interactable" to="." method="_on_interact"]
+[connection signal="on_interact" from="Interactable" to="." method="_on_barrel_interact"]

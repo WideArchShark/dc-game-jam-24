@@ -1,4 +1,5 @@
 extends StaticBody3D
+class_name Interactable
 
 enum InteractionType { EMIT_SIGNAL, DIALOGUE }
 
@@ -8,7 +9,7 @@ enum InteractionType { EMIT_SIGNAL, DIALOGUE }
 @export var dialogue_resource:Resource
 @export var dialogue_title:String 
 
-signal on_interact()
+signal on_interact(i:Interactable)
 signal interact_finished()
 
 func interact():
@@ -23,7 +24,7 @@ func interact():
 		if dip_camera:
 			GameManager.fps_camera.get_node("AnimationPlayer").play_backwards("look_down")
 	elif interaction_type == InteractionType.EMIT_SIGNAL:
-		on_interact.emit()
+		on_interact.emit(self)
 
 func mark_interaction_finished():
 	interact_finished.emit()

@@ -92,9 +92,108 @@ while GameManager.nim_num_matches > 1
 		Barry: So there's {{GameManager.nim_num_matches}} matches left.
 		Barry: I'm going to take {{GameManager.nim_num_matches_to_take()}} match[if GameManager.nim_num_matches_to_take() > 1]es[/if].
 		do GameManager.nim_num_matches -= GameManager.nim_num_matches_to_take()
-		Barry: That leaves {{GameManager.nim_num_matches}} match[if GameManager.nim_num_matches > 1]es[/if].
+#		Barry: That leaves {{GameManager.nim_num_matches}} match[if GameManager.nim_num_matches > 1]es[/if].
 	if GameManager.nim_num_matches == 1
-		Barry: I win!
+		Barry: That leaves 1 match. I win!
 		Barry: Keep trying scamp. 
 		=> END
+
+~ mage
+if GameManager.cosmic_horror_completed == true
+	Mage: Thanks again for the inspiration.
+	Mage: Don't forget, the letters are C and H.
+	Oh yeah, for Cosmic Horror.
+	Mage: [[Precisely|Exactly|You're getting it]].
+	=> END
+	
+if GameManager.spoken_to_mage == false
+	Mage: Hey there shiny.
+	Shiny?
+	Mage: Yeah, you're well shiny!
+	Thank you
+	Mage: You're welcome.
+	What's your story then?
+	Mage: Story? Story? Ha. I wish!
+	?
+	Mage: I'm trying to write a damn story, but I can't think of one.
+	Mage: I don't know why I even started to be honest.
+	Mage: Don't suppose you've got any ideas, have you?
+	=> mage_story
+else
+	Hey, so any ideas on a story for me?
+	=> mage_story
+	
+~ mage_story
+if GameManager.books_read == 0
+	Sorry bud. I got nothing.
+	Mage: [if GameManager.spoken_to_mage == true]Still [/if]Nothing?
+	Mage: OK, well let me know if you "find" any inspiration.
+	Will do chief.
+	# Having to set spoken_to_mage to true twice here, as I want "Still" to appear in the dialogue!
+	set GameManager.spoken_to_mage = true
+	=> END
+elif GameManager.books_read < 4
+	I'm working on it.
+	if GameManager.book1_read == true
+		Maybe something about a pirate?
+	if GameManager.book2_read == true
+		It'll be based around abandonment. 
+	if GameManager.book3_read == true
+		It's going to have aliens in it.
+	if GameManager.book4_read == true
+		Getting home. That's the underlying theme.
+	Mage: I see. Sounds like you're on to something.
+	Mage: Let me know when you get the full picture.
+	Sure.
+elif GameManager.books_read == 4
+	How about a story about a pirate? 
+	He's stolen an abandoned royal naval ship.
+	Mage: Oooh, that sounds fabulous!
+	Mage: Go on.
+	But the ship is not everything it appears.
+	There's a reason why the ship was abandoned
+	Mage: No way! What is it?
+	There's an ALIEN aboard the ship!
+	Mage: A what?
+	An ALIEN
+	Mage: This is terrifying. What does it want?
+	It just wants to go home.
+	But all of the crew got scared and abandoned ship.
+	Mage: Oh no, this is terrifying AND tragic.
+	But the pirate and the alien work it out.
+	And the alien flies his spaceship home.
+	Mage: That's brilliant! I LOVE it! So well CRAFTED!
+	Mage: Where do you get your inspiration?
+	Mage: It's like a cosmic horror.
+	A what?
+	Mage: You know, a terrifying story from outer space?
+	Right.
+	Mage: Thank you so much. 
+	Mage: The two letters I have to help you on your quest are C and H.
+	Mage: For Cosmic Horror!
+	Haha, OK, thank you.
+	Mage: No. Thank YOU!
+	set GameManager.cosmic_horror_completed = true
+set GameManager.spoken_to_mage = true
+=> END
+
+~ barrel_button_tryer
+if GameManager.current_barrel_word != "SEARCH"
+	Hmmm. The sign says {{GameManager.current_barrel_word}}
+	I don't think that's right.
+	It must have something to do with the letters I've been given.
+else
+	Yes! SEARCH. Of course! The search for the crypt is over!
+	set GameManager.game_completed = true
+	do GameManager.rise_crypt_scene()
+=> END
+
+~ crypt_door
+if GameManager.challenges_completed() < 4
+	You've completed {{GameManager.challenges_completed()}}/4 challenges so far.
+	This door will open once you have completed the challenges!
+else
+	do GameManager.main_scene.get_node("Walls/CryptDoor").open_door()
+=> END
+
 => END
