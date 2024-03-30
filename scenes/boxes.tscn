@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwchmv3jcxtrg"]
+
+[ext_resource type="PackedScene" uid="uid://cs0tncnggcgrd" path="res://assets/meshes/box_stacked.gltf.glb" id="1_r4047"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1g2gw"]
+size = Vector3(1.5, 2, 1.5)
+
+[node name="Boxes" type="StaticBody3D"]
+
+[node name="box_stacked_gltf" parent="." instance=ExtResource("1_r4047")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_1g2gw")

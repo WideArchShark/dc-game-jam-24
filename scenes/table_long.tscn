@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxeuq2ethjr32"]
+
+[ext_resource type="PackedScene" path="res://assets/meshes/table_long_tablecloth_decorated_A.gltf.glb" id="1_8wwo7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gof4k"]
+size = Vector3(1.5, 2, 1.5)
+
+[node name="TableLong" type="StaticBody3D"]
+
+[node name="table_long_tablecloth_decorated_A_gltf" parent="." instance=ExtResource("1_8wwo7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_gof4k")

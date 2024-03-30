@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://qgatxrhusk7y"]
+[gd_scene load_steps=26 format=3 uid="uid://qgatxrhusk7y"]
 
 [ext_resource type="Script" path="res://scripts/dungeon_maze_generator.gd" id="1_sikr5"]
 [ext_resource type="PackedScene" uid="uid://ciugkqjtkgb07" path="res://scenes/floor_tile_01.tscn" id="2_8e8jh"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="7_jybo4"]
 [ext_resource type="Texture2D" uid="uid://dy7jonywr1kuo" path="res://assets/meshes/wall_doorway_dungeon_texture.png" id="8_53gua"]
 [ext_resource type="PackedScene" uid="uid://qjmdg0jdq3fs" path="res://scenes/interactable.tscn" id="9_vl6pm"]
+[ext_resource type="AudioStream" uid="uid://b6vb6vks6ssf7" path="res://assets/audio/cave_theme_2.wav" id="11_opp1y"]
 [ext_resource type="Resource" uid="uid://l2duvm885kkb" path="res://dialogue_resources/dungeon_maze.dialogue" id="13_krb2x"]
 [ext_resource type="PackedScene" uid="uid://duyrcaedb5tub" path="res://scenes/chest.tscn" id="14_oys44"]
 [ext_resource type="PackedScene" uid="uid://btd45s5gmp0fa" path="res://scenes/key.tscn" id="16_gcmdf"]
@@ -128,6 +129,12 @@ bus = &"SFX"
 
 [node name="RotateSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("7_jybo4")
+bus = &"SFX"
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("11_opp1y")
+volume_db = -10.0
+autoplay = true
 bus = &"SFX"
 
 [node name="EntranceDoor" type="StaticBody3D" parent="."]

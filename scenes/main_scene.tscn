@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c6pkts38ivp77"]
+[gd_scene load_steps=45 format=3 uid="uid://c6pkts38ivp77"]
 
 [ext_resource type="PackedScene" uid="uid://b6rjdn4hiy43q" path="res://scenes/dirt_tile_01.tscn" id="1_y4xav"]
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_y7yda"]
@@ -26,24 +26,29 @@
 [ext_resource type="PackedScene" uid="uid://dcod6yyn6745m" path="res://assets/characters/barry.tscn" id="21_66v7f"]
 [ext_resource type="PackedScene" uid="uid://b6ndls4l44fyy" path="res://scenes/bookcase.tscn" id="22_n58e5"]
 [ext_resource type="Resource" uid="uid://dosnqoc6uopyb" path="res://dialogue_resources/bookshelves.dialogue" id="24_emlxw"]
+[ext_resource type="AudioStream" uid="uid://cn48yi2bp6eni" path="res://assets/audio/dungeon_theme_1.wav" id="24_pklsi"]
 [ext_resource type="PackedScene" uid="uid://bsiwtt03roq4d" path="res://scenes/letter_barrel.tscn" id="24_ur5w1"]
 [ext_resource type="PackedScene" uid="uid://rifu0v6agti6" path="res://scenes/sign.tscn" id="25_3n5kc"]
+[ext_resource type="AudioStream" uid="uid://g60kncc8jboo" path="res://assets/audio/Fanfare_1.wav" id="25_7p7cg"]
 [ext_resource type="Script" path="res://scripts/barrel_sign.gd" id="26_76qho"]
 [ext_resource type="PackedScene" uid="uid://vgkre3rayemt" path="res://assets/meshes/coin.gltf.glb" id="27_g4qcx"]
 [ext_resource type="PackedScene" uid="uid://caixkovmp7tgw" path="res://scenes/table.tscn" id="28_v1f87"]
+[ext_resource type="PackedScene" uid="uid://bwchmv3jcxtrg" path="res://scenes/boxes.tscn" id="34_y8rh4"]
+[ext_resource type="PackedScene" uid="uid://dxeuq2ethjr32" path="res://scenes/table_long.tscn" id="35_kjce1"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n8vd"]
-sky_top_color = Color(0.603922, 0.623529, 0.647059, 1)
-sky_horizon_color = Color(0.700981, 0.698132, 0.695015, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7yxrx"]
+sky_top_color = Color(0.603922, 0.670588, 0.760784, 1)
 sky_energy_multiplier = 2.15
 ground_horizon_color = Color(0.700981, 0.698132, 0.695015, 1)
 
-[sub_resource type="Sky" id="Sky_rqn5u"]
-sky_material = SubResource("ProceduralSkyMaterial_8n8vd")
+[sub_resource type="Sky" id="Sky_gnmr4"]
+sky_material = SubResource("ProceduralSkyMaterial_7yxrx")
 
-[sub_resource type="Environment" id="Environment_n1r33"]
+[sub_resource type="Environment" id="Environment_4b7in"]
 background_mode = 2
-sky = SubResource("Sky_rqn5u")
+sky = SubResource("Sky_gnmr4")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="Animation" id="Animation_1e2ny"]
 length = 0.001
@@ -120,7 +125,7 @@ _data = {
 script = ExtResource("1_y7yda")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_n1r33")
+environment = SubResource("Environment_4b7in")
 
 [node name="InsideTiles" type="Node3D" parent="."]
 
@@ -1425,6 +1430,16 @@ stream = ExtResource("12_mggj8")
 [node name="RotateSoundEffect" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("13_iy5fp")
 
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("24_pklsi")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="Fanfare" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("25_7p7cg")
+volume_db = -10.0
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.401596, 0.915817, 0, -0.915817, 0.401596, 0, 8.43325, 0)
 light_color = Color(0.301961, 0.282353, 0.231373, 1)
@@ -1546,6 +1561,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 9.73)
 libraries = {
 "": SubResource("AnimationLibrary_v3pjs")
 }
+
+[node name="Boxes" parent="." instance=ExtResource("34_y8rh4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10)
+
+[node name="Boxes4" parent="." instance=ExtResource("34_y8rh4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="Boxes2" parent="." instance=ExtResource("34_y8rh4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22, 0, 0)
+
+[node name="Boxes3" parent="." instance=ExtResource("34_y8rh4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 12)
+
+[node name="TableLong" parent="." instance=ExtResource("35_kjce1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 6)
 
 [connection signal="on_action" from="DirtTiles/DirtTile37/ActionableArea" to="." method="_on_garden_entered"]
 [connection signal="on_interact" from="Walls/MazeDoor/Interactable" to="Walls/MazeDoor" method="open_door"]

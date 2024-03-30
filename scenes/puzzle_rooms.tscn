@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://pusqf0nukdv2"]
+[gd_scene load_steps=29 format=3 uid="uid://pusqf0nukdv2"]
 
 [ext_resource type="Script" path="res://scripts/puzzle_rooms.gd" id="1_kiu1e"]
 [ext_resource type="PackedScene" uid="uid://dey85gerlvvcm" path="res://scenes/fps_grid_player.tscn" id="2_l8o1l"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bk0r0fqno4qaj" path="res://assets/audio/30_Jump_03.wav" id="4_ontdb"]
 [ext_resource type="PackedScene" uid="uid://ciugkqjtkgb07" path="res://scenes/floor_tile_01.tscn" id="5_8qtnw"]
 [ext_resource type="PackedScene" uid="uid://bl85my3pxx433" path="res://scenes/wall_01.tscn" id="6_amrbc"]
+[ext_resource type="AudioStream" uid="uid://b6vb6vks6ssf7" path="res://assets/audio/cave_theme_2.wav" id="6_jqhga"]
 [ext_resource type="PackedScene" uid="uid://sx3bykbt5ury" path="res://scenes/pillar.tscn" id="7_wrs2u"]
 [ext_resource type="PackedScene" uid="uid://x5rfw2sjg2r" path="res://scenes/door.tscn" id="8_g4d1p"]
 [ext_resource type="PackedScene" uid="uid://d2olcsj853yt5" path="res://scenes/pressure_tile.tscn" id="9_r56pw"]
@@ -66,6 +67,12 @@ stream = ExtResource("4_ontdb")
 
 [node name="ResetSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("19_0cdd6")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("6_jqhga")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
 
 [node name="Room1" type="Node3D" parent="."]
 
