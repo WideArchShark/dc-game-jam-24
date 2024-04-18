@@ -47,13 +47,11 @@ _data = {
 
 [node name="FPSGridPlayer" type="CharacterBody3D"]
 script = ExtResource("1_2h70d")
-rotation_speed = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_hp6lu")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-fov = 60.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_s3bwt")
@@ -102,7 +100,7 @@ script = ExtResource("4_vk7y3")
 script = ExtResource("5_kqf16")
 to = NodePath("../../Waiting")
 event = &"to_waiting"
-delay_seconds = 0.15
+delay_seconds = 0.1
 
 [node name="ToActioning" type="Node" parent="StateChart/PlayerStates/Moving"]
 script = ExtResource("5_kqf16")
@@ -166,6 +164,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FPSLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -181,13 +180,17 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -325.0
-offset_top = -59.0
-offset_right = -12.0
+offset_left = -432.0
+offset_top = -80.0
+offset_right = -13.0
+offset_bottom = -2.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("6_220s4")
+theme_override_font_sizes/font_size = 64
 text = "Moves Remaining: 1000"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -219,6 +222,7 @@ horizontal_alignment = 1
 [connection signal="state_exited" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_exited"]
 [connection signal="state_processing" from="StateChart/PlayerStates/Rotating" to="." method="_on_rotating_state_processing"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Interacting" to="." method="_on_interacting_state_entered"]
+[connection signal="state_exited" from="StateChart/PlayerStates/Interacting" to="." method="_on_interacting_state_exited"]
 [connection signal="state_entered" from="StateChart/PlayerStates/Actioning" to="." method="_on_actioning_state_entered"]
 [connection signal="state_entered" from="StateChart/PlayerStates/GameOver" to="." method="_on_game_over_state_entered"]
 [connection signal="state_entered" from="StateChart/PlayerStates/GameCompleted" to="." method="_on_game_completed_state_entered"]

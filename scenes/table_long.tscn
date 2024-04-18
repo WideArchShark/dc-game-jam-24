@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxeuq2ethjr32"]
 
-[ext_resource type="PackedScene" path="res://assets/meshes/table_long_tablecloth_decorated_A.gltf.glb" id="1_8wwo7"]
+[ext_resource type="PackedScene" uid="uid://ca4o3vhu4ys1o" path="res://assets/meshes/table_long_tablecloth_decorated_A.gltf.glb" id="1_8wwo7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gof4k"]
 size = Vector3(1.5, 2, 1.5)

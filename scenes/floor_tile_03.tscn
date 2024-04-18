@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcc524g8uqmei"]
+
+[ext_resource type="Texture2D" uid="uid://b76w450upx50p" path="res://assets/images/floor_normal.png" id="1_gypqk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2vwi"]
+albedo_color = Color(0.65098, 0.611765, 0.423529, 1)
+metallic = 0.43
+metallic_specular = 1.0
+roughness = 0.93
+normal_enabled = true
+normal_scale = 16.0
+normal_texture = ExtResource("1_gypqk")
+heightmap_scale = 1.779
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+uv1_triplanar = true
+
+[node name="FloorTile03" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_e2vwi")
+size = Vector3(1, 0.05, 1)

@@ -83,6 +83,9 @@ while GameManager.nim_num_matches > 1
 			Barry: I knew you could do it.
 			Barry: Let me tell you that the secret letter is "S".
 			Barry: I'm sure all the letters you gather will mean something.
+			Barry: Here's some health back too!
+			do GameManager.moves_remaining += 50
+			Hurrah!
 		else
 			Barry: You're really getting the hang of this. Well done!
 		set GameManager.beaten_barry = true
@@ -172,8 +175,9 @@ elif GameManager.books_read == 4
 	Mage: The two letters I have to help you on your quest are C and H.
 	Mage: For Cosmic Horror!
 	Haha, OK, thank you.
-	Mage: No. Thank YOU!
+	Mage: No. Thank YOU! Have some health back !!
 	set GameManager.cosmic_horror_completed = true
+	do GameManager.moves_remaining += 50
 set GameManager.spoken_to_mage = true
 => END
 

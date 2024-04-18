@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpq67i40dvqm6"]
+
+[ext_resource type="PackedScene" uid="uid://cqi2skysjtyn0" path="res://assets/meshes/gravestone2.glb" id="1_57nff"]
+[ext_resource type="FontFile" uid="uid://bsovmoy5rfq18" path="res://assets/fonts/DUNGRG__.TTF" id="2_lmt8j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o8mml"]
+size = Vector3(0.486328, 0.839648, 0.125977)
+
+[node name="Gravestone01" type="StaticBody3D"]
+
+[node name="gravestone22" parent="." instance=ExtResource("1_57nff")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419824, 0.00958133)
+shape = SubResource("BoxShape3D_o8mml")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999729, 0.0232806, 0, -0.0232806, 0.999729, 0, 0.602532, 0.0334023)
+modulate = Color(0.443137, 0.443137, 0.443137, 1)
+text = "RIP"
+font = ExtResource("2_lmt8j")
+font_size = 48
+outline_size = 1

@@ -16,8 +16,8 @@ var interactable_in_front:bool = false
 var interactable:Node
 var moving_finished:bool = false
 
-@export var movement_speed:float = 3
-@export var rotation_speed:float = 3
+@export var movement_speed:float = 4
+@export var rotation_speed:float = 4
 @export var grid_size:float = 2
 
 @export var walk_sound:AudioStreamPlayer
@@ -30,7 +30,7 @@ func _ready():
 	GameManager.fps_camera = self
 	global_position = GameManager.starting_pos
 	rotation.y = GameManager.starting_rot
-	$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
+	$MovesRemainingLabel.text = "Health remaining: %d" % GameManager.moves_remaining
 	
 	space_state = get_world_3d().direct_space_state
 	var tween = get_tree().create_tween()
@@ -105,6 +105,8 @@ func _on_waiting_state_physics_processing(_delta):
 	elif Input.is_action_just_pressed("interact") and interactable_in_front and interactable.is_interactable:
 		$InfoLabel.visible = false
 		state_chart.send_event("to_interacting")
+	elif Input.is_action_just_pressed("toggle_fps"):
+		$FPSLabel.visible = !$FPSLabel.visible
 
 
 func _move(direction:Vector3):
@@ -171,7 +173,7 @@ func _on_actioning_state_entered():
 
 func _on_moving_state_exited():
 	GameManager.moves_remaining -= 1
-	$MovesRemainingLabel.text = "Moves remaining: %d" % GameManager.moves_remaining
+	$MovesRemainingLabel.text = "Health remaining: %d" % GameManager.moves_remaining
 	player_moved.emit(global_position)
 
 func _on_rotating_state_exited():
@@ -181,7 +183,7 @@ func _on_game_over_state_entered():
 	var tween = get_tree().create_tween()
 	tween.tween_property($Fader, "modulate", Color(0,0,0,1), 2).set_trans(Tween.TRANS_SINE)
 	await tween.finished
-	$LargeMiddleLabel.text = "You ran out of moves\nTry Again"
+	$LargeMiddleLabel.text = "You ran out of health\nTry Again"
 	$LargeMiddleLabel.visible = true
 	await get_tree().create_timer(6).timeout
 
@@ -192,9 +194,11 @@ func _on_game_completed_state_entered():
 	var tween = get_tree().create_tween()
 	tween.tween_property($Fader, "modulate", Color(0,0,0,1), 2).set_trans(Tween.TRANS_SINE)
 	await tween.finished
-	$LargeMiddleLabel.text = "You completed the game\nwith %s moves remaining!" % GameManager.moves_remaining
+	$LargeMiddleLabel.text = "You completed the game\nwith %s health remaining!" % GameManager.moves_remaining
 	$LargeMiddleLabel.visible = true
 	await get_tree().create_timer(6).timeout
 
 	get_tree().change_scene_to_file(GameManager.MENU)
 
+func _on_interacting_state_exited():
+	$MovesRemainingLabel.text = "Health remaining: %d" % GameManager.moves_remaining

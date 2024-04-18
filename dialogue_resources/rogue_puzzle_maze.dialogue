@@ -22,6 +22,9 @@ else
 	Rogue: Remember them, cos' if you need them again, you'll have to do this whole thing again!
 	A and R. Got it!
 	Rogue: OK kid, be seeing ya'
+	Rogue: Have some health back too eh?
+	What a star you are! Thank you.
+	do GameManager.moves_remaining += 50
 	set GameManager.puzzle_rooms_completed = true
 do GameManager.load_main_scene_from_puzzle_rooms_scene()
 => END

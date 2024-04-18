@@ -52,8 +52,10 @@ Skeleton: Just a guess, but you should probably remember that.
 Skeleton: You know, write it down or something.
 Skeleton: Anyway. Back to standing around for all eternity.
 Skeleton: Please leave me to stare at that wall for a thousand years.
+Skeleton: I'll restore some of your health for your efforts at least.
+Thanks!
+do GameManager.moves_remaining += 50
 set GameManager.spoke_to_skeleton_after_maze_complete = true
-Sure.
 => END
 
 ~ leave_me_alone

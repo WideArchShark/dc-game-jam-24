@@ -10,7 +10,7 @@ var dungeon_maze_scene:Node3D
 var fps_camera:CharacterBody3D
 
 var game_completed:bool = false
-var moves_remaining:int = 1000
+var moves_remaining:int = 600
 
 var books_read:int = 0
 var book1_read:bool = false
